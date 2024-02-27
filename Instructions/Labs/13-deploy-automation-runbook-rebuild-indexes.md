@@ -6,9 +6,11 @@ lab:
 
 # Einsatz eines Runbooks zur Automatisierung der Neuerstellung von Indizes
 
-**Geschätzte Dauer**: 30 Minuten
+**Geschätzte Dauer: 30 Minuten**
 
 Sie wurden als Senior Data Engineer eingestellt, um die Automatisierung des täglichen Betriebs der Datenbankverwaltung voranzubringen. Diese Automatisierung soll sicherstellen, dass die Datenbanken für AdventureWorks weiterhin mit maximaler Leistung betrieben werden und Methoden für die Alarmierung auf der Grundlage bestimmter Kriterien bereitstellen. AdventureWorks nutzt SQL Server in Angeboten mit Infrastructure-as-a-Service- (IaaS) als auch Platform-as-a-Service- (PaaS).
+
+**Hinweis:** Diese Übungen bitten Sie möglicherweise, T-SQL-Code zu kopieren und einzufügen und vorhandene SQL-Ressourcen zu verwenden. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
 
 ## Automation-Konto erstellen
 
@@ -203,7 +205,7 @@ Als Nächstes planen Sie die Ausführung des Runbooks in regelmäßigen Abständ
 
 1. Klicken Sie auf **Erstellen** und dann auf **OK**.
 
-1. Der Zeitplan ist nun erstellt und mit dem Runbook verknüpft. Wählen Sie **OK** aus.
+1. Der Zeitplan ist nun erstellt und mit dem Runbook verknüpft. Klickan Sie auf **OK**.
 
     ![Screenshot des erstellten Zeitplans](../images/dp-300-module-13-lab-28.png)
 

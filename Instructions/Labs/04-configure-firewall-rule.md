@@ -12,7 +12,7 @@ Die Kursteilnehmer nutzen die in den Lektionen erworbenen Informationen, um die 
 
 Sie wurden als verantwortlicher Datenbankadministrator eingestellt, um die Sicherheit der Datenbankumgebung zu gewährleisten. Für diese Aufgaben wird schwerpunktmäßig Azure SQL-Datenbank eingesetzt.
 
-**Hinweis:** In diesen Übungen werden Sie aufgefordert, T-SQL-Code zu kopieren und einzufügen. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
+**Hinweis:** Diese Übungen bitten Sie, T-SQL-Code zu kopieren und einzufügen und vorhandene SQL-Ressourcen zu verwenden. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
 
 ## Konfigurieren von Firewallregeln für Azure SQL-Datenbank
 

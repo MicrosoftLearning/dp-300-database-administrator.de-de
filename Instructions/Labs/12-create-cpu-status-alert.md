@@ -6,9 +6,11 @@ lab:
 
 # Erstellen einer CPU-Statuswarnung für eine SQL Server-Instanz auf Azure
 
-**Geschätzte Dauer**: 30 Minuten
+**Geschätzte Dauer: 30 Minuten**
 
 Sie wurden als Senior Data Engineer eingestellt, um die Automatisierung der alltäglichen Datenbankverwaltungsvorgänge voranzutreiben. Diese Automatisierung soll sicherstellen, dass die Datenbanken für AdventureWorks weiterhin mit maximaler Leistung betrieben werden und Methoden für die Alarmierung auf der Grundlage bestimmter Kriterien bereitstellen.
+
+**Hinweis:** Diese Übungen bitten Sie möglicherweise, T-SQL-Code zu kopieren und einzufügen und vorhandene SQL-Ressourcen zu verwenden. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
 
 ## Erstellen einer Warnung, wenn eine CPU einen Durchschnitt von 80 Prozent überschreitet
 

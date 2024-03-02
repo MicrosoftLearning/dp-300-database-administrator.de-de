@@ -6,13 +6,13 @@ lab:
 
 # Isolieren von Leistungsproblemen durch Überwachung
 
-**Geschätzte Dauer**: 30 Minuten
+**Geschätzte Dauer: 30 Minuten**
 
 Die Kursteilnehmer planen anhand der in den Lektionen gewonnenen Informationen die Leistungen für ein digitales Transformationsprojekt in AdventureWorks. Sie untersuchen das Azure-Portal und andere Tools und bestimmen, wie sie Tools zur Identifizierung und Lösung von Leistungsproblemen einsetzen können.
 
 Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme zu ermitteln und geeignete Lösungen zu erarbeiten, um gefundene Probleme zu beheben. Sie müssen das Azure-Portal verwenden, um die Leistungsprobleme zu identifizieren, und Methoden vorschlagen, um diese zu beheben.
 
-**Hinweis:** In diesen Übungen werden Sie aufgefordert, T-SQL-Code zu kopieren und einzufügen. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
+**Hinweis:** Diese Übungen bitten Sie, T-SQL-Code zu kopieren und einzufügen, und verwenden vorhandene SQL-Ressourcen. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
 
 ## Überprüfen der CPU-Auslastung im Azure-Portal
 

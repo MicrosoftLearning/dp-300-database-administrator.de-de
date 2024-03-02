@@ -12,7 +12,7 @@ Die Kursteilnehmer nutzen die in den Lektionen erworbenen Informationen, um die 
 
 Sie wurden als verantwortlicher Datenbankadministrator eingestellt, um die Sicherheit der Datenbankumgebung zu gewährleisten.
 
-**Hinweis:** In diesen Übungen werden Sie aufgefordert, T-SQL-Code zu kopieren und einzufügen. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
+**Hinweis:** Diese Übungen bitten Sie, T-SQL-Code zu kopieren und einzufügen und vorhandene SQL-Ressourcen zu verwenden. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
 
 ## Autorisieren des Zugriffs auf Azure SQL-Datenbank mittels Azure Active Directory
 
@@ -48,7 +48,7 @@ Sie wurden als verantwortlicher Datenbankadministrator eingestellt, um die Siche
 
     Wählen Sie unter **Benutzername** den **Azure-Benutzernamen** auf der Registerkarte **Ressourcen** aus.
 
-1. Wählen Sie **Verbinden**.
+1. Wählen Sie **Verbinden** aus.
 
 > [!NOTE]
 > Wenn Sie zum ersten Mal versuchen, sich bei einer Azure SQL-Datenbank anzumelden, muss Ihre Client-IP-Adresse zur Firewall hinzugefügt werden. Dies kann SQL Server Management Studio für Sie übernehmen. Verwenden Sie das **Kennwort** des Azure-Portals von der Registerkarte **Ressourcen**, wählen Sie dann **Anmelden**, Ihre Azure-Anmeldedaten und schließlich **OK** aus.

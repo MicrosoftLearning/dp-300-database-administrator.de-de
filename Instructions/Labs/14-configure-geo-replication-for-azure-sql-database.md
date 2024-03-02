@@ -6,9 +6,11 @@ lab:
 
 # Konfigurieren der Georeplikation für Azure SQL-Datenbank
 
-**Geschätzte Dauer**: 30 Minuten
+**Geschätzte Dauer: 30 Minuten**
 
 Als DBA in AdventureWorks müssen Sie die Georeplikation für Azure SQL Database aktivieren und sicherstellen, dass sie ordnungsgemäß funktioniert. Darüber hinaus verlagern Sie die Datenbank in einem Failover manuell über das Portal in eine andere Region.
+
+**Hinweis:** Diese Übungen bitten Sie möglicherweise, T-SQL-Code zu kopieren und einzufügen und vorhandene SQL-Ressourcen zu verwenden. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
 
 ## Aktivieren der Georeplikation
 
@@ -47,7 +49,7 @@ Als DBA in AdventureWorks müssen Sie die Georeplikation für Azure SQL Database
 
     ![Screenshot: Seite „SQL-Datenbank-Server erstellen“](../images/dp-300-module-14-lab-05.png)
 
-1. Wählen Sie **Erstellen** aus.
+1. Klicken Sie auf **Erstellen**.
 
     ![Screenshot zeigt die Seite „Bewerten + Erstellen“.](../images/dp-300-module-14-lab-06.png)
 
@@ -95,7 +97,7 @@ Nachdem das Azure SQL-Datenbank-Replikat erstellt wurde, führen Sie ein Failove
     ![Screenshot mit einer Warnmeldung zum erzwungenen Failover.](../images/dp-300-module-14-lab-14.png)
 
     > [!NOTE]
-    > Dieser Vorgang kann einige Minuten dauern. Wenn er abgeschlossen ist, werden die Rollen getauscht, wobei das sekundäre Replikat zum neuen primären wird und das alte primäre zum sekundären.
+    > Dieser Prozess kann einige Minuten in Anspruch nehmen. Wenn er abgeschlossen ist, werden die Rollen getauscht, wobei das sekundäre Replikat zum neuen primären wird und das alte primäre zum sekundären.
 
 Die lesbare sekundäre Datenbank kann sich in derselben Azure-Region befinden wie die primäre, oder, was häufiger der Fall ist, in einer anderen Region. Diese Art von lesbaren Sekundärdatenbanken werden auch als Geo-Sekundärdatenbanken oder Geo-Replikate bezeichnet.
 

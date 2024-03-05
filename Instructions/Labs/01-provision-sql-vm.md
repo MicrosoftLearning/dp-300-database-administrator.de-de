@@ -6,7 +6,7 @@ lab:
 
 # Bereitstellen von SQL Server auf einer Azure-VM
 
-**Geschätzte Dauer**: 30 Minuten
+**Geschätzte Dauer: 30 Minuten**
 
 Die Kursteilnehmer erkunden das Azure-Portal und verwenden es zum Erstellen einer Azure-VM, auf der SQL Server 2019 installiert ist. Dann stellen sie über das Remotedesktopprotokoll eine Verbindung mit einem virtuellen Computer her.
 
@@ -26,7 +26,7 @@ Sie sind der Datenbankadministrator für AdventureWorks. Sie müssen eine Testum
 
     ![Abbildung 10](../images/dp-300-module-01-lab-10.png)
 
-1. Öffnen Sie auf dem Blatt **SQL-Bereitstellungsoption auswählen** das Dropdownfeld unter **SQL-VMs**. Wählen Sie den Softwareplan **Free SQL Server License: SQL 2019 Developer on Windows Server 2022** (Kostenlose SQL Server-Lizenz: SQL 2019-Entwickler unter Windows Server 2022) aus. Klicken Sie anschließend auf **Erstellen**.
+1. Öffnen Sie auf dem Blatt **SQL-Bereitstellungsoption auswählen** das Dropdownfeld unter **SQL-VMs**. Wählen Sie den Softwareplan **Free SQL Server License: SQL 2019 Developer on Windows Server 2022** (Kostenlose SQL Server-Lizenz: SQL 2019-Entwickler unter Windows Server 2022) aus. Wählen Sie dann **Erstellen** aus.
 
     ![Abbildung 11](../images/dp-300-module-01-lab-11.png)
 
@@ -73,7 +73,7 @@ Sie sind der Datenbankadministrator für AdventureWorks. Sie müssen eine Testum
 
     **Hinweis:** Auf diesem Bildschirm können Sie auch den Speicher für Ihre SQL Server-VM konfigurieren. Die Vorlagen für SQL Server auf einer Azure-VM erstellen standardmäßig einen Premium-Datenträger mit einem Lesecache für Daten sowie einen Premium-Datenträger ohne Cache für das Transaktionsprotokoll und verwendet den lokalen SSD-Datenträger (D:\ unter Windows) für die tempdb.
 
-1. Wählen Sie die Schaltfläche **Überprüfen + erstellen** aus. Klicken Sie anschließend auf **Erstellen**.
+1. Wählen Sie die Schaltfläche **Überprüfen + erstellen** aus. Wählen Sie dann **Erstellen** aus.
 
     ![Abbildung 18](../images/dp-300-module-01-lab-18.png)
 
@@ -105,7 +105,7 @@ Sie sind der Datenbankadministrator für AdventureWorks. Sie müssen eine Testum
 
     ![Abbildung 23](../images/dp-300-module-01-lab-23.png)
 
-1. Geben Sie während des Bereitstellungsprozesses des virtuellen Computers den Benutzernamen und das Kennwort ein. Klicken Sie anschließend auf **OK**.
+1. Geben Sie während des Bereitstellungsprozesses des virtuellen Computers den Benutzernamen und das Kennwort ein. Wählen Sie dann **OK** aus.
 
     ![Abbildung 24](../images/dp-300-module-01-lab-24.png)
 
@@ -113,11 +113,9 @@ Sie sind der Datenbankadministrator für AdventureWorks. Sie müssen eine Testum
 
     ![Abbildung 26](../images/dp-300-module-01-lab-26.png)
 
-1. Wählen Sie die Windows-Starttaste und geben Sie SSMS ein. Wählen Sie **Microsoft SQL Server Management Studio 18** aus der Liste aus.  
+1. Wählen Sie die Windows-Starttaste und geben Sie SSMS ein. Wählen Sie **Microsoft SQL Server Management Studio** von der Liste aus.  
 
-    ![Abbildung 34](../images/dp-300-module-01-lab-34.png)
-
-1. Beim Öffnen von SSMS wird das Dialogfeld **Mit Server verbinden** vorab mit dem Standardinstanznamen ausgefüllt. Wählen Sie **Verbinden**.
+1. Wenn SSMS geöffnet wird, beachten Sie, dass das Dialogfeld **Mit Server verbinden** mit dem Standardinstanznamen vorausgefüllt ist. Wählen Sie **Verbinden** aus.
 
     ![Abbildung 35](../images/dp-300-module-01-lab-35.png)
 

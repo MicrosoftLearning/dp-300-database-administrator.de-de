@@ -12,6 +12,8 @@ Die Kursteilnehmer nutzen die in den Lektionen erworbenen Informationen, um die 
 
 Sie wurden als verantwortlicher Datenbankadministrator eingestellt, um die Sicherheit der Datenbankumgebung zu gewährleisten. Für diese Aufgaben wird schwerpunktmäßig Azure SQL-Datenbank eingesetzt.
 
+**Hinweis:** Diese Übungen bitten Sie, T-SQL-Code zu kopieren und einzufügen und vorhandene SQL-Ressourcen zu verwenden. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
+
 ## Aktivieren von Microsoft Defender für SQL
 
 1. Starten Sie auf dem virtuellen Lab-Computer eine Browsersitzung, und navigieren Sie zu [https://portal.azure.com](https://portal.azure.com/). Stellen Sie eine Verbindung zum Portal her. Verwenden Sie dafür **Benutzernamen** und **Kennwort** von Azure, die auf der Registerkarte **Ressourcen** für diesen virtuellen Lab-Computer bereitgestellt werden.

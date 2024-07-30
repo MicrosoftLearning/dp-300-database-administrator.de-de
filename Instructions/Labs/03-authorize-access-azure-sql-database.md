@@ -24,7 +24,7 @@ Sie wurden als verantwortlicher Datenbankadministrator eingestellt, um die Siche
 
     ![Screenshot der Startseite des Azure-Portals mit Auswahl von „Alle Ressourcen“](../images/dp-300-module-03-lab-01.png)
 
-1. Wählen Sie den Azure SQL-Datenbankserver **dp300-lab-xxxxxx**, wobei **xxxxxx** eine zufällige Zeichenfolge ist. Wählen Sie dann **Nicht konfiguriert** neben **Active Directory-Administrator**.
+1. Wählen Sie den SQL Server **dp300-lab-xxxxxx**, wobei **xxxxxx** eine zufällige Zeichenfolge ist, und wählen Sie **Nicht konfiguriert** neben **Active Directory-Admin**.
 
     ![Screenshot bei Auswahl von „Nicht konfiguriert“](../images/dp-300-module-03-lab-02.png)
 

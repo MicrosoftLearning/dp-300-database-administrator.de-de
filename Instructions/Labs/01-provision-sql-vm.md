@@ -89,11 +89,9 @@ Sie sind der Datenbankadministrator für AdventureWorks. Sie müssen eine Testum
 
 ## Herstellen einer Verbindung mit SQL Server auf einer Azure-VM
 
-1. Wählen Sie auf der Seite **Übersicht** des virtuellen Computers die Schaltfläche **Verbinden** und dann RDP aus.
+1. Wählen Sie auf der Seite **Übersicht** für den virtuellen Computer die Option **Verbinden**.
 
-    ![Abbildung 21](../images/dp-300-module-01-lab-21.png)
-
-1. Wählen Sie auf der Registerkarte „RDP“ **RDP-Datei herunterladen** aus.
+1. Wählen Sie im Bereich „Verbinden“ die Schaltfläche **RDP-Datei herunterladen** aus.
 
     ![Abbildung 22](../images/dp-300-module-01-lab-22.png)
 
@@ -115,7 +113,7 @@ Sie sind der Datenbankadministrator für AdventureWorks. Sie müssen eine Testum
 
 1. Wählen Sie die Windows-Starttaste und geben Sie SSMS ein. Wählen Sie **Microsoft SQL Server Management Studio** von der Liste aus.  
 
-1. Wenn SSMS geöffnet wird, beachten Sie, dass das Dialogfeld **Mit Server verbinden** mit dem Standardinstanznamen vorausgefüllt ist. Wählen Sie **Verbinden** aus.
+1. Wenn SSMS geöffnet wird, beachten Sie, dass das Dialogfeld **Mit Server verbinden** mit dem Standardinstanznamen vorausgefüllt ist. Aktivieren Sie die Option **Serverzertifikat vertrauen** und wählen Sie dann **Verbinden**.
 
     ![Abbildung 35](../images/dp-300-module-01-lab-35.png)
 

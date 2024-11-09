@@ -18,7 +18,7 @@ Idealerweise sollten Sie diese Labs in einer gehosteten Labumgebung absolvieren.
 
 1. Alle verfügbaren Updates anwenden
 
-### Microsoft Edge
+### Edge
 
 1. Die neueste Version von Microsoft Edge von [microsoft.com/edge] installieren.
 

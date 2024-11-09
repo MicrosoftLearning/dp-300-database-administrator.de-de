@@ -20,7 +20,7 @@ Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme
 
     ![Abbildung 03](../images/dp-300-module-07-lab-03.png)
 
-1. Wählen Sie die Windows-Starttaste und geben Sie SSMS ein. Wählen Sie **microsoft SQL Server Management Studio 18** aus der Liste aus.  
+1. Wählen Sie die Windows-Starttaste und geben Sie SSMS ein. Wählen Sie **Microsoft SQL Server Management Studio 18** aus der Liste aus.  
 
     ![Abbildung 01](../images/dp-300-module-01-lab-34.png)
 

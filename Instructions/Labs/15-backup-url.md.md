@@ -6,7 +6,7 @@ lab:
 
 # Erstellen von Sicherungen über URLs
 
-**Geschätzte Dauer**: 30 Minuten
+**Geschätzte Dauer: 30 Minuten**
 
 Als DBA für AdventureWorks müssen Sie eine Datenbank unter einer URL in Azure sichern und sie nach einem menschlichen Fehler aus dem Azure-Blob-Speicher wiederherstellen.
 

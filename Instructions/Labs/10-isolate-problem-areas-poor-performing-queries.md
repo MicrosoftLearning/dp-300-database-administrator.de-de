@@ -6,7 +6,7 @@ lab:
 
 # Isolieren von Problembereichen in Abfragen mit schlechter Leistung in SQL-Datenbank
 
-**Geschätzte Dauer**: 30 Minuten
+**Geschätzte Dauer: 30 Minuten**
 
 Sie wurden als leitender Datenbankadministrator eingestellt, um Leistungsprobleme zu beheben, die derzeit auftreten, wenn Benutzer die Datenbank *AdventureWorks2017* abfragen. Ihre Aufgabe besteht darin, Probleme bei der Abfrageleistung zu identifizieren und diese mithilfe der in diesem Modul erlernten Methoden zu beheben.
 
@@ -201,7 +201,7 @@ Als Nächstes führen Sie eine Workload aus, um Abfragestatistiken für den Abfr
 
     ![Auswahl der Konfigurationsoption für den Bericht zu den Abfragen mit dem höchsten Ressourcenverbrauch](../images/dp-300-module-10-lab-08.png)
 
-1. Ändern Sie auf dem Konfigurationsbildschirm den Filter für die Mindestanzahl von Abfrageplänen in 2. Klicken Sie anschließend auf **OK**.
+1. Ändern Sie auf dem Konfigurationsbildschirm den Filter für die Mindestanzahl von Abfrageplänen in 2. Wählen Sie dann **OK** aus.
 
     ![Festlegen der Mindestanzahl von Abfrageplänen](../images/dp-300-module-10-lab-09.png)
 

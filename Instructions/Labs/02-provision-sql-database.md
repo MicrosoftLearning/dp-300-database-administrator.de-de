@@ -45,12 +45,6 @@ Als Datenbankadministrator richten Sie eine neue SQL-Datenbank ein, einschließl
 
 1. Klicken Sie auf **Bewerten + erstellen**, bewerten Sie die Einstellungen für das neue virtuelle Netzwerk, und klicken Sie dann auf **Erstellen**.
 
-1. Konfigurieren Sie den IP-Bereich des virtuellen Netzwerks für den Azure SQL-Datenbankendpunkt. Navigieren Sie dafür zum erstellten virtuellen Netzwerk und klicken Sie im Bereich **Einstellungen** auf **Subnetze**.
-
-1. Klicken Sie auf den **Standardlink** des Subnetzes. Beachten Sie, dass möglicherweise ein anderer **Subnetzadressbereich** angezeigt wird.
-
-1. Erweitern Sie im Bereich **Subnetz bearbeiten** auf der rechten Seite das Dropdownmenü **Dienste**, und klicken Sie auf **Microsoft.Sql**. Wählen Sie **Speichern** aus.
-
 ## Bereitstellen einer Azure SQL-Datenbank
 
 1. Suchen Sie im Azure-Portal über die Suchleiste oben nach „SQL-Datenbank“, und wählen Sie aus der Optionsliste **SQL-Datenbank** aus.

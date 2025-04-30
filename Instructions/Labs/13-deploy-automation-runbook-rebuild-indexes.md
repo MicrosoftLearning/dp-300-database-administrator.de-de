@@ -10,160 +10,150 @@ lab:
 
 Sie wurden als Senior Data Engineer eingestellt, um die Automatisierung des täglichen Betriebs der Datenbankverwaltung voranzubringen. Diese Automatisierung soll sicherstellen, dass die Datenbanken für AdventureWorks weiterhin mit maximaler Leistung betrieben werden und Methoden für die Alarmierung auf der Grundlage bestimmter Kriterien bereitstellen. AdventureWorks nutzt SQL Server in Angeboten mit Infrastructure-as-a-Service- (IaaS) als auch Platform-as-a-Service- (PaaS).
 
-**Hinweis:** Diese Übungen bitten Sie möglicherweise, T-SQL-Code zu kopieren und einzufügen und vorhandene SQL-Ressourcen zu verwenden. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
+> &#128221; Bei diesen Übungen müssen Sie möglicherweise T-SQL-Code kopieren und einfügen und vorhandene SQL-Ressourcen nutzen. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
+
+## Umgebung einrichten
+
+Wenn Ihr virtueller Computer für das Lab bereitgestellt und vorkonfiguriert wurde, sollten Sie die Lab-Dateien im Ordner **C:\LabFiles** finden. *Nehmen Sie sich einen Moment Zeit, um zu überprüfen, ob die Dateien bereits vorhanden sind. Überspringen Sie diesen Abschnitt.* Wenn Sie jedoch Ihren eigenen Computer verwenden oder die Lab-Dateien fehlen, müssen Sie sie von *GitHub* klonen, um fortzufahren.
+
+1. Starten Sie auf dem virtuellen Lab-Computer oder dem lokalen Computer, wenn kein Computer bereitgestellt wurde, eine Visual Studio Code-Sitzung.
+
+1. Öffnen Sie die Befehlspalette (Strg+Umschalt+P) und geben Sie **Git: Clone** ein. Wählen Sie die Option **Git: Clone** aus.
+
+1. Fügen Sie die folgende URL in das Feld **Repository URL** ein und wählen Sie **Eingabe**.
+
+    ```url
+    https://github.com/MicrosoftLearning/dp-300-database-administrator.git
+    ```
+
+1. Speichern Sie das Repository im Ordner **C:\LabFiles** auf dem virtuellen Lab-Computer oder auf Ihrem lokalen Computer, falls kein virtueller Lab-Computer bereitgestellt wurde (erstellen Sie den Ordner, falls er nicht vorhanden ist).
+
+## Einrichten Ihres SQL Server in Azure
+
+Melden Sie sich bei Azure an, und überprüfen Sie, ob Sie über eine vorhandene Azure SQL Server-Instanz verfügen, die in Azure ausgeführt wird. *Überspringen Sie diesen Abschnitt, wenn Sie bereits eine SQL Server-Instanz in Azure ausführen*.
+
+1. Starten Sie auf dem virtuellen Lab-Computer oder Ihrem lokalen Computer (falls kein virtueller Computer bereitgestellt wurde) eine Visual Studio Code-Sitzung und navigieren Sie zum geklonten Repository aus dem vorherigen Abschnitt.
+
+1. Klicken Sie mit der rechten Maustaste auf den Ordner **/Allfiles/Labs** und wählen Sie **In integriertem Terminal öffnen** aus.
+
+1. Verbinden wir uns mit Azure über die Azure CLI. Geben Sie den folgenden Befehl ein und wählen Sie **Eingabe**.
+
+    ```bash
+    az login
+    ```
+
+    > &#128221; Beachten Sie, dass ein Browserfenster geöffnet wird. Verwenden Sie Ihre Azure AD-Anmeldeinformationen, um sich anzumelden.
+
+1. Sobald Sie bei Azure angemeldet sind, ist es an der Zeit, eine Ressourcengruppe zu erstellen, wenn sie noch nicht vorhanden ist, und einen SQL Server und eine Datenbank unter dieser Ressourcengruppe zu erstellen. Geben Sie den folgenden Befehl ein und wählen Sie **Eingabe**. *Die Ausführung des Skripts dauert einige Minuten.*
+
+    ```bash
+    cd ./Setup
+    ./deploy-sql-database.ps1
+    ```
+
+    > &#128221; Beachten Sie, dass dieses Skript standardmäßig eine Ressourcengruppe mit dem Namen **contoso-rg** erstellt oder eine Ressource verwendet, deren Name mit *contoso-rg* beginnt, falls sie vorhanden ist. Standardmäßig werden auch alle Ressourcen in der Region **USA, Westen 2** (westus2) erstellt. Schließlich wird ein zufälliges 12-Zeichen-Kennwort für das **SQL-Administratorkennwort** generiert. Sie können diese Werte ändern, indem Sie einen oder mehrere der Parameter **-rgName**, **-location** und **-sqlAdminPw** mit Ihren eigenen Werten verwenden. Das Kennwort muss die Anforderungen an die Komplexität von Azure SQL-Kennwörtern erfüllen, mindestens 12 Zeichen lang und mindestens 1 Großbuchstaben, 1 Kleinbuchstaben, 1 Zahl und 1 Sonderzeichen enthalten.
+
+    > &#128221; Beachten Sie, dass das Skript Ihre aktuelle öffentliche IP-Adresse zu den SQL Server-Firewallregeln hinzufügt.
+
+1. Sobald das Skript abgeschlossen ist, werden der Name der Ressourcengruppe, der Name des SQL-Servers und der Datenbank sowie der Name des Administratorbenutzers und das Kennwort zurückgegeben. *Notieren Sie sich diese Werte, da Sie sie später in der Übung benötigen.*
+
+---
 
 ## Automation-Konto erstellen
 
-1. Starten Sie auf dem virtuellen Lab-Computer eine Browsersitzung, und navigieren Sie zu [https://portal.azure.com](https://portal.azure.com/). Stellen Sie eine Verbindung zum Portal her. Verwenden Sie dafür **Benutzernamen** und **Kennwort** von Azure, die auf der Registerkarte **Ressourcen** für diesen virtuellen Lab-Computer bereitgestellt werden.
-
-    ![Screenshot zur Anmeldeseite des Azure-Portals](../images/dp-300-module-01-lab-01.png)
+1. Starten Sie auf dem virtuellen Lab-Computer oder Ihrem lokalen Computer (falls kein virtueller Computer bereitgestellt wurde) eine Browsersitzung und navigieren Sie zu [https://portal.azure.com](https://portal.azure.com/). Melden Sie sich mit Ihren Azure-Anmeldedaten beim Portal an.
 
 1. Geben Sie im Azure-Portal in die Suchleiste *Automation* ein, und wählen Sie **Automation-Konten** aus den Suchergebnissen aus. Wählen Sie dann **+ Erstellen**.
-
-    ![Screenshot der ausgewählten Option „Automation-Konten“](../images/dp-300-module-13-lab-01.png)
 
 1. Geben Sie auf der Seite **Automation-Konto erstellen** die folgenden Informationen ein, und wählen Sie dann **Überprüfen+ Erstellen** aus.
 
     - **Ressourcengruppe:** &lt;Ihre Ressourcengruppe&gt;
-    - **Name:** autoAccount
-    - **Speicherort:** Übernehmen Sie die Standardeinstellung.
-
-    ![Screenshot des Bildschirms „Automation-Konto hinzufügen“](../images/dp-300-module-13-lab-02.png)
+    - **Name des Automatisierungskontos:** autoAccount
+    - **Region:** Verwenden Sie die Standardeinstellung.
 
 1. Wählen Sie auf der Seite „Überprüfen“ die Option **Erstellen** aus.
 
-    ![Screenshot des Bildschirms „Automation-Konto hinzufügen“](../images/dp-300-module-13-lab-29.png)
-
-    > [!NOTE]
-    > Ihr Automation-Konto sollte in etwa drei Minuten erstellt werden.
+    > &#128221; Das Erstellen Ihres Automatisierungskontos kann einige Minuten dauern.
 
 ## Herstellen einer Verbindung zu einer bestehenden Instanz von Azure SQL-Datenbank
 
 1. Navigieren Sie im Azure-Portal zurück zu Ihrer Datenbank, indem Sie nach **SQL-Datenbanken** suchen.
 
-    ![Screenshot zur Suche nach bestehenden SQL-Datenbanken](../images/dp-300-module-13-lab-03.png)
-
 1. Wählen Sie die SQL-Datenbank **AdventureWorksLT** aus.
-
-    ![Screenshot mit Auswahl der AdventureWorks-SQL-Datenbank](../images/dp-300-module-13-lab-04.png)
 
 1. Wählen Sie im Hauptabschnitt der Seite für Ihre SQL-Datenbank die Option **Abfrage-Editor (Vorschau)** aus.
 
-    ![Screenshot des ausgewählten Abfrage-Editors (Vorschau)](../images/dp-300-module-13-lab-05.png)
+1. Sie werden aufgefordert, sich mit dem Datenbank-Admin-Konto bei Ihrer Datenbank anzumelden. Wählen Sie **OK**.
 
-1. Sie werden dazu aufgefordert, Anmeldeinformationen einzugeben, um sich bei Ihrer Datenbank anzumelden. Verwenden Sie diese Anmeldeinformation:
+    Dadurch wird eine neue Registerkarte in Ihrem Browser geöffnet. Wählen Sie **Client-IP hinzufügen** und dann **Speichern**. Nach dem Speichern kehren Sie zur vorherigen Registerkarte zurück und wählen Sie erneut **OK**.
 
-    - **Anmeldung:** sqladmin
-    - **Kennwort**: P@ssw0rd01
+    > &#128221; Möglicherweise wird die folgende Fehlermeldung angezeigt: *Der vom Login angeforderte Server „Ihr-SQL-Servername“ kann nicht geöffnet werden. Der Client mit der IP-Adresse „xxx.xxx.xxx.xxx“ hat keine Zugriffsberechtigung für den Server.* Falls ja, müssen Sie Ihre aktuelle öffentliche IP-Adresse den SQL Server-Firewallregeln hinzufügen.
 
-1. Die folgende Fehlermeldung sollte angezeigt werden:
+    Wenn Sie die Firewallregeln einrichten müssen, führen Sie die folgenden Schritte aus:
 
-    ![Screenshot des Anmeldefehlers](../images/dp-300-module-13-lab-06.png)
+    1. Wählen Sie **Server-Firewall festlegen** aus der oberen Menüleiste der **Übersichtsseite** der Datenbank aus.
+    1. Wählen Sie **Aktuelle IPv4-Adresse hinzufügen (xxx.xxx.xxx.xxx)** und dann **Speichern**.
+    1. Nach dem Speichern kehren Sie zur Datenbankseite **AdventureWorksLT** zurück und wählen Sie erneut **Abfrage-Editor (Vorschau)**.
+    1. Sie werden aufgefordert, sich mit dem Datenbank-Admin-Konto bei Ihrer Datenbank anzumelden. Wählen Sie **OK**.
 
-1. Wählen Sie den Link **Allowlist IP ...** aus, der am Ende der oben angezeigten Fehlermeldung angegeben wurde. Dadurch wird Ihre Client-IP automatisch als Firewall-Regel-Eintrag für Ihre SQL-Datenbank hinzugefügt.
+1. Wählen Sie im **Abfrage-Editor (Vorschau)** die Option **Abfrage öffnen**.
 
-    ![Screenshot zur Erstellung von Firewallregeln.](../images/dp-300-module-13-lab-07.png)
+1. Wählen Sie das Symbol *Ordner durchsuchen* und navigieren Sie zum Ordner **C:\LabFiles\dp-300-database-administrator\Allfiles\Labs\Module13**. Wählen Sie die Datei **usp_AdaptiveIndexDefrag.sql** und wählen Sie **Öffnen** und anschließend **OK** aus.
 
-1. Wechseln Sie zurück zum Abfrage-Editor, und klicken Sie auf **OK**, um sich bei Ihrer Datenbank anzumelden.
+1. Löschen Sie **USE msdb** und **GO** in den Zeilen 5 und 6 der Abfrage, und wählen Sie dann **Ausführen**.
 
-1. Öffnen Sie eine neue Registerkarte in Ihrem Browser, und navigieren Sie zur GitHub-Seite für das Skript [**AdaptativeIndexDefragmentation**](https://github.com/microsoft/tigertoolbox/blob/master/AdaptiveIndexDefrag/usp_AdaptiveIndexDefrag.sql). Wählen Sie anschließend **Raw** aus:
-
-    ![Screenshot zur Auswahl von „Raw“ in GitHub](../images/dp-300-module-13-lab-08.png)
-
-    Dadurch wird der Code in einem kopierbaren Format bereitgestellt. Wählen Sie den gesamten Text aus (<kbd>STRG</kbd> + <kbd>A</kbd>), und kopieren Sie ihn in die Zwischenablage (<kbd>STRG</kbd> + <kbd>C</kbd>).
-
-    >[!NOTE]
-    > Dieses Skript soll eine intelligente Defragmentierung für einen oder mehrere Indizes sowie die erforderliche Aktualisierung der Statistiken für eine oder mehrere Datenbanken durchführen.
-
-1. Schließen Sie die GitHub-Registerkarte im Browser, und kehren Sie zum Azure-Portal zurück.
-
-1. Fügen Sie den kopierten Text in den Bereich **Query 1** (Abfrage 1) ein.
-
-    ![Screenshot zum Einfügens des Codes in ein neues Abfragefenster.](../images/dp-300-module-13-lab-09.png)
-
-1. Löschen Sie `USE msdb` und `GO` in den Zeilen 5 und 6 der Abfrage (im Screenshot hervorgehoben), und klicken Sie auf **Ausführen**.
-
-1. Erweitern Sie den Ordner **Gespeicherte Prozeduren**, um anzuzeigen, welche Elemente erstellt wurden.
-
-    ![Screenshot der neuen gespeicherten Prozeduren](../images/dp-300-module-13-lab-10.png)
+1. Erweitern Sie den Ordner **Gespeicherte Prozeduren**, um die neu erstellten gespeicherten Prozeduren zu sehen.
 
 ## Konfigurieren von Automation-Kontoressourcen
 
 In den nächsten Schritte konfigurieren Sie die Ressourcen, die zur Vorbereitung der Runbook-Erstellung erforderlich sind. Wählen Sie dann **Automation-Konten** aus.
 
-1. Geben Sie im Azure-Portal in das obere Suchfeld **Automation** ein.
+1. Geben Sie im Azure-Portal im oberen Suchfeld **Automatisierung** ein und wählen Sie **Automatisierungskonten**.
 
-    ![Screenshot der ausgewählten Option „Automation-Konten“](../images/dp-300-module-13-lab-11.png)
-
-1. Wählen Sie das von Ihnen erstellte Automation-Konto aus.
-
-    ![Screenshot des ausgewählten Automation-Kontos „autoAccount“](../images/dp-300-module-13-lab-12.png)
+1. Wählen Sie das **autoAccount**-Automatisierungskonto, das Sie erstellt haben.
 
 1. Wählen Sie auf dem Blatt „Automation“ im Abschnitt **Freigegebene Ressourcen** die Option **Module** aus. Wählen Sie **Katalog durchsuchen** aus.
 
-    ![Screenshot der ausgewählten Menüoption „Module“](../images/dp-300-module-13-lab-13.png)
+1. Suchen Sie im Katalog nach **SqlServer**.
 
-1. Suchen Sie im Katalog nach **sqlserver**.
-
-    ![Screenshot des ausgewählten Moduls „SqlServer“](../images/dp-300-module-13-lab-14.png)
-
-1. Wählen Sie **SqlServer** aus. Dadurch werden Sie zum nächsten Bildschirm weitergeleitet. Wählen Sie dann **Auswählen** aus.
-
-    ![Screenshot: Auswahl von „Auswählen“](../images/dp-300-module-13-lab-15.png)
+1. Wählen Sie **SqlServer**, um zum nächsten Bildschirm zu gelangen, und klicken Sie dann auf die Schaltfläche **Auswählen**.
 
 1. Wählen Sie auf der Seite **Modul hinzufügen** die neueste verfügbare Laufzeitversion und dann **Importieren** aus. Dadurch wird das PowerShell-Modul in Ihr Automation-Konto importiert.
 
-    ![Screenshot zur Auswahl von „Importieren“](../images/dp-300-module-13-lab-16.png)
-
-1. Sie müssen Anmeldeinformationen erstellen, um sich sicher bei Ihrer Datenbank anzumelden. Navigieren Sie auf dem Blatt des Automation-Kontos zum Abschnitt **Freigegebene Ressourcen**, und klicken Sie auf **Anmeldeinformationen**.
-
-    ![Screenshot zur Auswahl der Option „Anmeldeinformationen“](../images/dp-300-module-13-lab-17.png)
+1. Sie müssen Anmeldeinformationen erstellen, um sich sicher bei Ihrer Datenbank anzumelden. Navigieren Sie im Blatt für das *Automatisierungskonto* zum Abschnitt **Gemeinsame Ressourcen** und wählen Sie **Anmeldedaten** aus.
 
 1. Wählen Sie **+ Anmeldeinformationen hinzufügen**, geben Sie die folgenden Informationen ein, und wählen Sie dann **Erstellen** aus.
 
     - Name: **SQLUser**
     - Benutzername: **sqladmin**
-    - Kennwort: **P@ssw0rd01**
-    - Kennwort bestätigen: **P@ssw0rd01**
-
-    ![Screenshot zum Hinzufügens von Anmeldeinformationen](../images/dp-300-module-13-lab-18.png)
+    - Kennwort: &lt;Geben Sie ein sicheres Kennwort ein, 12 Zeichen lang und enthält mindestens 1 Großbuchstaben, 1 Kleinbuchstaben, 1 Zahl und 1 Sonderzeichen.&gt;
+    - Kennwort bestätigen: &lt;Geben Sie das zuvor eingegebene Kennwort erneut ein.&gt;
 
 ## Erstellen eines PowerShell-Runbooks
 
 1. Navigieren Sie im Azure-Portal zurück zu Ihrer Datenbank, indem Sie nach **SQL-Datenbanken** suchen.
 
-    ![Screenshot zur Suche nach bestehenden SQL-Datenbanken](../images/dp-300-module-13-lab-03.png)
-
 1. Wählen Sie die SQL-Datenbank **AdventureWorksLT** aus.
 
-    ![Screenshot mit Auswahl der AdventureWorks-SQL-Datenbank](../images/dp-300-module-13-lab-04.png)
+1. Auf der Seite **Übersicht** kopieren Sie den **Servernamen** Ihrer Azure SQL-Datenbank (Ihr Servername sollte mit *dp300-lab* beginnen). Sie werden ihn später wieder einfügen.
 
-1. Kopieren Sie auf der Seite **Überblick**, wie unten gezeigt, den **Servernamen** Ihrer Instanz von Azure SQL-Datenbank. (Ihr Servername sollte mit *dp300-lab* beginnen.) Sie werden ihn später wieder einfügen.
+1. Geben Sie im Azure-Portal im oberen Suchfeld **Automatisierung** ein und wählen Sie **Automatisierungskonten**.
 
-    ![Screenshot des Kopierens des Servernamens](../images/dp-300-module-13-lab-19.png)
+1. Wählen Sie das **AutoAccount**- Automatisierungskonto aus.
 
-1. Geben Sie im Azure-Portal in das obere Suchfeld **Automation** ein.
+1. Erweitern Sie den Abschnitt **Prozessautomatisierung** des Automatisierungs-Kontoblatts und wählen Sie **Runbooks**.
 
-    ![Screenshot der ausgewählten Option „Automation-Konten“](../images/dp-300-module-13-lab-11.png)
+1. Wählen Sie **+ Runbook erstellen** aus.
 
-1. Wählen Sie das von Ihnen erstellte Automation-Konto aus.
+    > &#128221; Wie wir bereits erfahren haben, gibt es zwei bestehende Runbooks, die erstellt wurden. Diese wurden während der Bereitstellung des Automatisierungskontos automatisch erstellt.
 
-    ![Screenshot des ausgewählten Automation-Kontos „autoAccount“](../images/dp-300-module-13-lab-12.png)
+1. Geben Sie den Runbooknamen **IndexMaintenance** und den Runbooktyp **PowerShell** ein. Wählen Sie die neueste verfügbare Laufzeitversion aus und wählen Sie dann **Überprüfen + Erstellen** aus.
 
-1. Scrollen Sie im Blatt des Automation-Kontos zum Abschnitt **Prozessautomatisierung**, und wählen Sie **Runbooks** und **+ Runbook erstellen**.
+1. Wählen Sie auf der Seite **Runbook erstellen** die Option **Erstellen**.
 
-    ![Screenshot der Seite „Runbooks“, wobei „Runbook erstellen“ ausgewählt ist](../images/dp-300-module-13-lab-20.png)
+1. Nachdem das Runbook erstellt wurde, kopieren Sie den folgenden Powershell-Codeausschnitt und fügen ihn in den Runbook-Editor ein. 
 
-    >[!NOTE]
-    > Wie wir bereits gelernt haben, wurden zwei Runbooks bereits erstellt. Diese wurden während der Bereitstellung des Automatisierungskontos automatisch erstellt.
-
-1. Geben Sie den Runbooknamen **IndexMaintenance** und den Runbooktyp **PowerShell** ein. Wählen Sie die neueste verfügbare Laufzeitversion und dann **Erstellen** aus.
-
-    ![Screenshot einer Runbookerstellung](../images/dp-300-module-13-lab-21.png)
-
-1. Nachdem das Runbook erstellt wurde, kopieren Sie den folgenden Powershell-Codeausschnitt und fügen ihn in den Runbook-Editor ein. Fügen Sie in der ersten Zeile des Skripts den Servernamen ein, den Sie in den obigen Schritten kopiert haben. Wählen Sie **Speichern** und dann **Veröffentlichen** aus.
-
-    **Hinweis:** Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
+    > &#128221; Bitte überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie das Runbook speichern.
 
     ```powershell
     $AzureSQLServerName = ''
@@ -175,40 +165,98 @@ In den nächsten Schritte konfigurieren Sie die Ressourcen, die zur Vorbereitung
     Write-Output $SQLOutput
     ```
 
-    ![Screenshot des eingefügten Codeausschnitts.](../images/dp-300-module-13-lab-22.png)
+    > &#128221; Beachten Sie, dass der obige Code ein PowerShell-Skript ist, das die gespeicherte Prozedur **usp_AdaptiveIndexDefrag** in der **AdventureWorksLT**-Datenbank ausführt. Das Skript verwendet das Cmdlet **Invoke-Sqlcmd**, um eine Verbindung mit dem SQL-Server herzustellen und die gespeicherte Prozedur auszuführen. Das Cmdlet **Get-AutomationPSCredential** wird zum Abrufen der im Automatisierungskonto gespeicherten Anmeldedaten verwendet.
 
-1. Wenn alles gut geht, sollten Sie eine Erfolgsmeldung erhalten.
+1. Geben Sie in der ersten Zeile des Skripts den Servernamen ein, den Sie in den vorherigen Schritten kopiert haben.
 
-    ![Screenshot einer Erfolgsmeldung bei der Erstellung des Runbook.](../images/dp-300-module-13-lab-23.png)
+1. Wählen Sie **Speichern** und dann **Veröffentlichen** aus.
+
+1. Wählen Sie **Ja**, um die Veröffentlichung zu bestätigen.
+
+1. Das Runbook *IndexMaintenance* ist jetzt veröffentlicht.
 
 ## Erstellen eines Zeitplans für ein Runbook
 
 Als Nächstes planen Sie die Ausführung des Runbooks in regelmäßigen Abständen.
 
-1. Wählen Sie im linken Navigationsbereich Ihres Runbooks **IndexMaintenance** unter **Ressourcen** die Option **Zeitpläne**. Klicken Sie dann auf **+ Zeitplan hinzufügen**.
-
-    ![Screenshot der Seite „Zeitpläne“, auf der „Zeitplan hinzufügen“ ausgewählt ist](../images/dp-300-module-13-lab-24.png)
-
-1. Wählen Sie **Zeitplan mit Runbook verknüpfen** aus.
-
-    ![Screenshot der ausgewählten Option „Zeitplan mit Runbook verknüpfen“](../images/dp-300-module-13-lab-25.png)
+1. Wählen Sie im linken Navigationsbereich Ihres Runbooks **IndexMaintenance** unter **Ressourcen** die Option **Zeitpläne**. 
 
 1. Wählen Sie **+ Zeitplan hinzufügen** aus.
 
-    ![Screenshot des Links „Neuen Zeitplan erstellen“](../images/dp-300-module-13-lab-26.png)
+1. Wählen Sie **Zeitplan mit Runbook verknüpfen** aus.
 
-1. Geben Sie, falls gewünscht, einen beschreibenden Namen für den Zeitplan und eine Beschreibung ein.
+1. Wählen Sie **+ Zeitplan hinzufügen** aus.
 
-1. Legen Sie die Startzeit auf den Folgetag um **4:00 Uhr** morgens und die Zeitzone auf **Pacific Time** fest. Legen Sie als Wiederholungsintervall **1** Tag fest. Konfigurieren Sie kein Ablaufdatum.
+1. Geben Sie die nachstehenden Informationen ein und wählen Sie dann **Erstellen**.
 
-    ![Screenshot des neuen Popups „Neuer Zeitplan“, in das Beispielinformationen eingegeben wurden](../images/dp-300-module-13-lab-27.png)
+    - **Name:** DailyIndexDefrag
+    - **Beschreibung:** Tägliche Index-Defragmentierung für die AdventureWorksLT-Datenbank.
+    - **Start:** 4:00 Uhr (nächster Tag)
+    - **Zeitzone:**&lt;Wählen Sie die Zeitzone aus, die Ihrem Standort entspricht.&gt;
+    - **Serie:** Wiederkehrend
+    - **Wiederholung:** 1 Tag
+    - **Ablaufdatum festlegen:** Nein
+
+    > &#128221; Beachten Sie, dass die Startzeit am nächsten Tag auf 4:00 Uhr festgelegt ist. Die Zeitzone ist auf Ihre lokale Zeitzone festgelegt. Die Wiederholung ist auf jeden Tag festgelegt. Läuft nie ab.
 
 1. Klicken Sie auf **Erstellen** und dann auf **OK**.
 
-1. Der Zeitplan ist nun erstellt und mit dem Runbook verknüpft. Klickan Sie auf **OK**.
-
-    ![Screenshot des erstellten Zeitplans](../images/dp-300-module-13-lab-28.png)
+1. Der Zeitplan ist nun erstellt und mit dem Runbook verknüpft. Wählen Sie **OK** aus.
 
 Azure Automation bietet einen cloudbasierten Automatisierungs- und Konfigurationsdienst, der eine konsistente Verwaltung Ihrer Azure- und sonstigen Umgebungen unterstützt.
+
+---
+
+## Bereinigen von Ressourcen
+
+Wenn Sie den Azure SQL Server nicht für andere Zwecke verwenden, können Sie die in diesem Lab erstellten Ressourcen bereinigen.
+
+### Löschen der Ressourcengruppe
+
+Wenn Sie eine neue Ressourcengruppe für dieses Lab erstellt haben, können Sie die Ressourcengruppe löschen, um alle in diesem Lab erstellten Ressourcen zu entfernen.
+
+1. Wählen Sie im Azure-Portal **Ressourcengruppen** im linken Navigationsbereich oder suchen Sie in der Suchleiste nach **Ressourcengruppen** und wählen Sie die Option aus den Ergebnissen aus.
+
+1. Wechseln Sie zur Ressourcengruppe, die Sie für dieses Lab erstellt haben. Die Ressourcengruppe enthält den Azure SQL Server und andere Ressourcen, die in diesem Lab erstellt wurden.
+
+1. Wählen Sie **Ressourcengruppe löschen** aus dem Menü ganz oben aus.
+
+1. Geben Sie im Dialog **Ressourcengruppe löschen** den Namen der zu bestätigenden Ressourcengruppe ein und wählen Sie **Löschen**.
+
+1. Warten Sie, bis die Ressourcengruppe gelöscht wurde.
+
+1. Schließen Sie das Azure-Portal.
+
+### Löschen Sie nur die Lab-Ressourcen
+
+Wenn Sie keine neue Ressourcengruppe für dieses Lab erstellt haben und die Ressourcengruppe und die vorherigen Ressourcen intakt lassen möchten, können Sie die in dieser Übung erstellten Ressourcen weiterhin löschen.
+
+1. Wählen Sie im Azure-Portal **Ressourcengruppen** im linken Navigationsbereich oder suchen Sie in der Suchleiste nach **Ressourcengruppen** und wählen Sie die Option aus den Ergebnissen aus.
+
+1. Wechseln Sie zur Ressourcengruppe, die Sie für dieses Lab erstellt haben. Die Ressourcengruppe enthält den Azure SQL Server und andere Ressourcen, die in diesem Lab erstellt wurden.
+
+1. Wählen Sie alle Ressourcen aus, denen der zuvor im Lab angegebene SQL Server-Name vorangestellt ist.
+
+1. Wählen Sie im Menü oben **Löschen** aus.
+
+1. Im Dialog **Ressourcen löschen** geben Sie **Löschen** ein und wählen **Löschen**.
+
+1. Wählen Sie erneut **Löschen**, um die Löschung der Ressourcen zu bestätigen.
+
+1. Warten Sie, bis die Ressourcen gelöscht wurden.
+
+1. Schließen Sie das Azure-Portal.
+
+### Löschen des LabFiles-Ordners
+
+Wenn Sie einen neuen LabFiles-Ordner für dieses Lab erstellt haben und ihn nicht mehr benötigen, können Sie den LabFiles-Ordner löschen, um alle in diesem Lab erstellten Dateien zu entfernen.
+
+1. Öffnen Sie auf dem virtuellen Lab-Computer oder auf Ihrem lokalen Computer, falls kein solcher zur Verfügung gestellt wurde, den Datei-Explorer und navigieren Sie zum Laufwerk **C:\\**.
+1. Klicken Sie mit der rechten Maustaste auf den Ordner **LabFiles** und wählen Sie **Löschen**.
+1. Wählen Sie **Ja**, um die Löschung des Ordners zu bestätigen.
+
+---
+
+Sie haben dieses Lab erfolgreich abgeschlossen.
 
 In dieser Übung haben Sie die Defragmentierung von Indizes in einer SQL Server-Datenbank automatisiert. Sie wird täglich um 4:00 Uhr ausgeführt.

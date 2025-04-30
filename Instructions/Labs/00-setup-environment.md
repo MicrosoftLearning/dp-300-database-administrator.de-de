@@ -1,6 +1,6 @@
 ---
 lab:
-  title: Einrichten einer eigenen Umgebung
+  title: Einrichten Ihrer eigenen Umgebung
   module: Setup your own environment
 ---
 
@@ -12,36 +12,44 @@ Idealerweise sollten Sie diese Labs in einer gehosteten Labumgebung absolvieren.
 
 > &#128221; Die folgenden Anweisungen beziehen sich auf einen Windows 10-Computer. Sie können auch Linux oder MacOS verwenden. Möglicherweise müssen Sie die Labanweisungen für Ihr gewähltes Betriebssystem anpassen.
 
-### Betriebssystem Windows 10 (OS)
+### Windows 11 (OS)
 
-1. Windows 10 (*Version 2004 oder höher*) installieren.
+1. Installieren Sie Windows 11.
 
-1. Alle verfügbaren Updates anwenden
+1. Anwenden aller verfügbaren Updates.
 
-### Edge
+### Microsoft Edge
 
-1. Die neueste Version von Microsoft Edge von [microsoft.com/edge] installieren.
+1. Installieren Sie die neueste Version von Microsoft Edge von [https://microsoft.com/edge].
 
 ### Git
 
-1. Von [git-scm.com/downloads] herunterladen und installieren.
+1. Herunterladen und installieren von [https://git-scm.com/downloads].
+
+    - Verwenden Sie die Standardoptionen im Installationsprogramm.
+
+### Azure-Befehlszeilenschnittstelle
+
+1. Herunterladen und installieren von [https://aka.ms/installazurecliwindows].
 
     - Verwenden Sie die Standardoptionen im Installationsprogramm.
 
 ### Visual Studio Code
 
-1. Von [code.visualstudio.com/download] herunterladen und installieren.
+1. Herunterladen und installieren von [https://code.visualstudio.com/download].
 
     - Verwenden Sie die Standardoptionen im Installationsprogramm.
 
 ### SQL Server Management Studio
 
-1. Von [https://aka.ms/ssmsfullsetup] herunterladen und installieren.
+1. Herunterladen und installieren von [https://aka.ms/ssmsfullsetup].
 
     - Verwenden Sie die Standardoptionen im Installationsprogramm.
 
-### Azure Data Studio
+### SQL Server 2022 Developer Edition
 
-1. Von [https://docs.microsoft.com/sql/azure-data-studio/download-azure-data-studio] herunterladen und installieren.
+1. Herunterladen und installieren von [https://www.microsoft.com/en-us/sql-server/sql-server-downloads].
 
-    - Verwenden Sie die Standardoptionen im Installationsprogramm.
+    - Verwenden Sie die Standardoptionen im Installationsprogramm. Für diese Labs ist nur die SQL Server-Datenbank-Engine erforderlich.
+    - Sie können die Standardinstanz verwenden.
+    - Sie können den Standard-Authentifizierungsmodus verwenden.

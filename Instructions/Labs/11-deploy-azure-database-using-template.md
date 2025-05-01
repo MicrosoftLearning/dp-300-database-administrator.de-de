@@ -14,7 +14,7 @@ Sie wurden als Senior Data Engineer eingestellt, um das Unternehmen dabei zu unt
 
 1. Öffnen Sie in Microsoft Edge eine neue Registerkarte, und navigieren Sie zum folgenden Pfad in einem GitHub-Repository, das eine ARM-Vorlage zum Bereitstellen einer SQL-Datenbankressource enthält.
 
-    ```
+    ```url
     https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.sql/sql-database
     ```
 
@@ -109,5 +109,51 @@ Sie wurden als Senior Data Engineer eingestellt, um das Unternehmen dabei zu unt
 1. Wählen Sie nach Abschluss der Bereitstellung **Zur Ressourcengruppe wechseln** aus. Sie werden zu Ihrer Azure-Ressourcengruppe weitergeleitet. Sie enthält eine zufällig benannte **SQL Server**-Ressource, die durch die Bereitstellung erstellt wurde.
 
     ![Abbildung 3](../images/dp-300-module-11-lab-03.png)
+
+---
+
+## Bereinigen von Ressourcen
+
+Wenn Sie den Azure SQL Server nicht für andere Zwecke verwenden, können Sie die in diesem Lab erstellten Ressourcen bereinigen.
+
+### Löschen der Ressourcengruppe
+
+Wenn Sie eine neue Ressourcengruppe für dieses Lab erstellt haben, können Sie die Ressourcengruppe löschen, um alle in diesem Lab erstellten Ressourcen zu entfernen.
+
+1. Wählen Sie im Azure-Portal **Ressourcengruppen** im linken Navigationsbereich oder suchen Sie in der Suchleiste nach **Ressourcengruppen** und wählen Sie die Option aus den Ergebnissen aus.
+
+1. Wechseln Sie zur Ressourcengruppe, die Sie für dieses Lab erstellt haben. Die Ressourcengruppe enthält den Azure SQL Server und andere Ressourcen, die in diesem Lab erstellt wurden.
+
+1. Wählen Sie **Ressourcengruppe löschen** aus dem Menü ganz oben aus.
+
+1. Geben Sie im Dialog **Ressourcengruppe löschen** den Namen der zu bestätigenden Ressourcengruppe ein und wählen Sie **Löschen**.
+
+1. Warten Sie, bis die Ressourcengruppe gelöscht wurde.
+
+1. Schließen Sie das Azure-Portal.
+
+### Löschen Sie nur die Lab-Ressourcen
+
+Wenn Sie keine neue Ressourcengruppe für dieses Lab erstellt haben und die Ressourcengruppe und die vorherigen Ressourcen intakt lassen möchten, können Sie die in dieser Übung erstellten Ressourcen weiterhin löschen.
+
+1. Wählen Sie im Azure-Portal **Ressourcengruppen** im linken Navigationsbereich oder suchen Sie in der Suchleiste nach **Ressourcengruppen** und wählen Sie die Option aus den Ergebnissen aus.
+
+1. Wechseln Sie zur Ressourcengruppe, die Sie für dieses Lab erstellt haben. Die Ressourcengruppe enthält den Azure SQL Server und andere Ressourcen, die in diesem Lab erstellt wurden.
+
+1. Wählen Sie alle Ressourcen aus, denen der zuvor im Lab angegebene SQL Server-Name vorangestellt ist.
+
+1. Wählen Sie im Menü oben **Löschen** aus.
+
+1. Im Dialog **Ressourcen löschen** geben Sie **Löschen** ein und wählen **Löschen**.
+
+1. Wählen Sie erneut **Löschen**, um die Löschung der Ressourcen zu bestätigen.
+
+1. Warten Sie, bis die Ressourcen gelöscht wurden.
+
+1. Schließen Sie das Azure-Portal.
+
+---
+
+Sie haben dieses Lab erfolgreich abgeschlossen.
 
 Sie haben gerade gesehen, wie Sie mit einem einzigen Klick auf den Link zu einer Azure Resource Manager-Vorlage sowohl einen Azure-SQL-Server als auch eine Datenbank problemlos erstellen können.

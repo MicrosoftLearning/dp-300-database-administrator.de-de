@@ -12,43 +12,53 @@ Die Kursteilnehmer planen anhand der in den Lektionen gewonnenen Informationen d
 
 Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme zu ermitteln und geeignete Lösungen zu erarbeiten, um gefundene Probleme zu beheben. Sie müssen die Leistungsprobleme untersuchen und Methoden zu ihrer Behebung vorschlagen.
 
-**Hinweis:** In diesen Übungen werden Sie aufgefordert, T-SQL-Code zu kopieren und einzufügen. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
+> &#128221; In diesen Übungen werden Sie aufgefordert, T-SQL-Code zu kopieren und einzufügen. Überprüfen Sie, ob der Code korrekt kopiert wurde, bevor Sie ihn ausführen.
+
+## Umgebung einrichten
+
+Wenn Ihr virtueller Computer für das Lab bereitgestellt und vorkonfiguriert wurde, sollten Sie die Lab-Dateien im Ordner **C:\LabFiles** finden. *Nehmen Sie sich einen Moment Zeit, um zu überprüfen, ob die Dateien bereits vorhanden sind. Überspringen Sie diesen Abschnitt.* Wenn Sie jedoch Ihren eigenen Computer verwenden oder die Lab-Dateien fehlen, müssen Sie sie von *GitHub* klonen, um fortzufahren.
+
+1. Starten Sie auf dem virtuellen Lab-Computer oder dem lokalen Computer, wenn kein Computer bereitgestellt wurde, eine Visual Studio Code-Sitzung.
+
+1. Öffnen Sie die Befehlspalette (Strg+Umschalt+P) und geben Sie **Git: Clone** ein. Wählen Sie die Option **Git: Clone** aus.
+
+1. Fügen Sie die folgende URL in das Feld **Repository URL** ein und wählen Sie **Eingabe**.
+
+    ```url
+    https://github.com/MicrosoftLearning/dp-300-database-administrator.git
+    ```
+
+1. Speichern Sie das Repository im Ordner **C:\LabFiles** auf dem virtuellen Lab-Computer oder auf Ihrem lokalen Computer, falls kein virtueller Lab-Computer bereitgestellt wurde (erstellen Sie den Ordner, falls er nicht vorhanden ist).
+
+---
 
 ## Wiederherstellen einer Datenbank
 
-1. Laden Sie die Sicherungsdatei der Datenbank unter **https://github.com/MicrosoftLearning/dp-300-database-administrator/blob/master/Instructions/Templates/AdventureWorks2017.bak** in den Pfad **C:\LabFiles\Monitor and optimize** auf dem virtuellen Lab-Computer herunter. (Erstellen Sie die Ordnerstruktur, falls sie nicht vorhanden ist.)
+Wenn Sie die **AdventureWorks2017-Datenbank** bereits wiederhergestellt haben, können Sie diesen Abschnitt überspringen.
 
-    ![Abbildung 03](../images/dp-300-module-07-lab-03.png)
+1. Starten Sie auf dem virtuellen Lab-Computer oder dem lokalen Computer, wenn kein Computer bereitgestellt wurde, eine SQL Server Management Studio-Sitzung (SSMS).
 
-1. Wählen Sie die Windows-Starttaste und geben Sie SSMS ein. Wählen Sie **Microsoft SQL Server Management Studio 18** aus der Liste aus.  
+1. Wenn SSMS geöffnet wird, erscheint standardmäßig das Dialogfeld **Mit Server verbinden**. Wählen Sie die Standardinstanz und dann **Verbinden** aus. Möglicherweise müssen Sie das Kontrollkästchen **Serverzertifikat vertrauen** aktivieren.
 
-    ![Abbildung 01](../images/dp-300-module-01-lab-34.png)
+    > &#128221; Wenn Sie Ihre eigene SQL Server-Instanz verwenden, müssen Sie mithilfe des entsprechenden Serverinstanznamens und der entsprechenden Anmeldeinformationen eine Verbindung damit herstellen.
 
-1. Beim Öffnen von SSMS wird das Dialogfeld **Mit Server verbinden** vorab mit dem Standardinstanznamen ausgefüllt. Wählen Sie **Verbinden**.
+1. Wählen Sie den Ordner **Datenbanken**, und dann **Neue Abfrage**.
 
-    ![Abbildung 02](../images/dp-300-module-07-lab-01.png)
-
-1. Wählen Sie den Ordner **Datenbanken** und dann **Neue Abfrage** aus.
-
-    ![Abbildung 03](../images/dp-300-module-07-lab-04.png)
-
-1. Kopieren Sie im Fenster „Neue Abfrage“ den folgenden T-SQL, und fügen Sie ihn ein. Führen Sie die Abfrage aus, um die Datenbank wiederherzustellen.
+1. Kopieren Sie im neuen Abfragefenster die folgende T-SQL und fügen Sie sie ein. Führen Sie die Abfrage aus, um die Datenbank wiederherzustellen.
 
     ```sql
     RESTORE DATABASE AdventureWorks2017
-    FROM DISK = 'C:\LabFiles\Monitor and optimize\AdventureWorks2017.bak'
+    FROM DISK = 'C:\LabFiles\dp-300-database-administrator\Allfiles\Labs\Shared\AdventureWorks2017.bak'
     WITH RECOVERY,
           MOVE 'AdventureWorks2017' 
-            TO 'C:\LabFiles\Monitor and optimize\AdventureWorks2017.mdf',
+            TO 'C:\LabFiles\AdventureWorks2017.mdf',
           MOVE 'AdventureWorks2017_log'
-            TO 'C:\LabFiles\Monitor and optimize\AdventureWorks2017_log.ldf';
+            TO 'C:\LabFiles\AdventureWorks2017_log.ldf';
     ```
 
-    **Hinweis:** Der Name und der Pfad der Datenbanksicherungsdatei sollten mit der in Schritt 1 heruntergeladenen Datei übereinstimmen, andernfalls wird der Befehl fehlschlagen.
+    > &#128221; Sie müssen einen Ordner namens **C:\LabFiles** haben. Wenn Sie diesen Ordner nicht haben, erstellen Sie ihn, oder geben Sie einen anderen Speicherort für die Datenbank- und Sicherungsdateien an.
 
-1. Nach beendeter Wiederherstellung sollte eine Erfolgsmeldung angezeigt werden.
-
-    ![Abbildung 03](../images/dp-300-module-07-lab-05.png)
+1. Auf der Registerkarte **Meldungen** sollten Sie eine Meldung sehen, die besagt, dass die Datenbank erfolgreich wiederhergestellt wurde.
 
 ## Ausführen blockierter Abfrageberichte
 
@@ -64,11 +74,13 @@ Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme
     ACTION(sqlserver.client_app_name,sqlserver.client_hostname,sqlserver.database_id,sqlserver.database_name,sqlserver.nt_username,sqlserver.session_id,sqlserver.sql_text,sqlserver.username))
     ADD TARGET package0.ring_buffer
     WITH (MAX_MEMORY=4096 KB, EVENT_RETENTION_MODE=ALLOW_SINGLE_EVENT_LOSS, MAX_DISPATCH_LATENCY=30 SECONDS, MAX_EVENT_SIZE=0 KB,MEMORY_PARTITION_MODE=NONE, TRACK_CAUSALITY=OFF,STARTUP_STATE=ON)
+
     GO
 
     -- Start the event session 
     ALTER EVENT SESSION [Blocking] ON SERVER 
-    STATE = start; 
+    STATE = start;
+
     GO
     ```
 
@@ -87,19 +99,24 @@ Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme
 
     ```sql
     EXEC sys.sp_configure N'show advanced options', 1
+
     RECONFIGURE WITH OVERRIDE;
+
     GO
     EXEC sp_configure 'blocked process threshold (s)', 60
+
     RECONFIGURE WITH OVERRIDE;
+
     GO
     ```
 
-    **Hinweis:** Der obige Befehl gibt den Schwellenwert in Sekunden an, nach dem Berichte zu blockierten Prozesse erstellt werden. Daher müssen wir in dieser Lektion nicht so lange warten, bis der *blocked_process_report* ausgelöst wird.
+    > &#128221; Beachten Sie, dass der obige Befehl den Schwellenwert in Sekunden angibt, bei dem Berichte über blockierte Prozesse erstellt werden. Daher müssen wir in dieser Lektion nicht so lange warten, bis der *blocked_process_report* ausgelöst wird.
 
 1. Wählen Sie **Neue Abfrage** aus. Kopieren Sie den folgenden T-SQL-Code, und fügen Sie ihn in das Abfragefenster ein. Klicken Sie auf **Ausführen**, um die Abfrage auszuführen.
 
     ```sql
     USE AdventureWorks2017
+
     GO
 
     BEGIN TRANSACTION
@@ -113,6 +130,7 @@ Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme
 
     ```sql
     USE AdventureWorks2017
+
     GO
 
     SELECT TOP (1000) [LastName]
@@ -122,27 +140,19 @@ Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme
     WHERE FirstName = 'David'
     ```
 
-    **Hinweis:** Diese Abfrage gibt keine Ergebnisse zurück und scheint unbegrenzt zu laufen.
+    > &#128221; Beachten Sie, dass diese Abfrage keine Ergebnisse liefert und unendlich lange zu laufen scheint.
 
 1. Erweitern Sie im **Objekt-Explorer** die Optionen **Verwaltung** -> **Erweiterte Ereignisse** -> **Sitzungen**.
 
     Beachten Sie, dass das soeben erstellte erweiterte Ereignis *Blockieren* in der Liste enthalten ist.
 
-    ![Abbildung 01](../images/dp-300-module-08-lab-01.png)
+1. Erweitern Sie das erweiterte Ereignis *Sperrung* und klicken Sie mit der rechten Maustaste auf **Paket0.ring_buffer**. Wählen Sie **Zieldaten anzeigen**.
 
-1. Klicken Sie mit der rechten Maustaste auf **package0.ring_buffer**, und klicken Sie auf **Zieldaten anzeigen**.
+1. Wählen Sie den aufgelisteten Link aus.
 
-    ![Abbildung 02](../images/dp-300-module-08-lab-02.png)
+1. Die XML-Datei zeigt Ihnen, welche Prozesse blockiert werden und welcher Prozess die Blockierung verursacht. Sie können die Abfragen sehen, die in diesem Prozess ausgeführt wurden, sowie Systeminformationen. Beachten Sie, dass die Sitzungs-IDs (SPID) angezeigt werden.
 
-1. Klicken Sie auf den Link.
-
-    ![Abbildung 03](../images/dp-300-module-08-lab-03.png)
-
-1. Die XML-Datei zeigt Ihnen, welche Prozesse blockiert werden und welcher Prozess die Blockierung verursacht. Sie können die Abfragen sehen, die in diesem Prozess ausgeführt wurden, sowie Systeminformationen.
-
-    ![Abbildung 04](../images/dp-300-module-08-lab-04.png)
-
-1. Alternativ können Sie die unten stehende Abfrage ausführen, um Sitzungen zu identifizieren, die andere Sitzungen blockieren, einschließlich einer Liste der Sitzungs-IDs, die pro *Sitzungs-ID* blockiert werden.
+1. Alternativ können Sie die folgende Abfrage ausführen, um Sitzungen zu identifizieren, die andere Sitzungen blockieren, einschließlich einer Liste der Sitzungs-IDs, die pro *session_id* blockiert werden. Öffnen Sie ein Fenster **Neue Abfrage**, kopieren Sie den folgenden T-SQL-Code und fügen Sie ihn ein, und wählen Sie **Ausführen**.
 
     ```sql
     WITH cteBL (session_id, blocking_these) AS 
@@ -164,19 +174,13 @@ Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme
     ORDER BY len(bl.blocking_these) desc, r.blocking_session_id desc, r.session_id;
     ```
 
-    ![Abbildung 05](../images/dp-300-module-08-lab-05.png)
+    > &#128221; Beachten Sie, dass die obige Abfrage dieselben SPIDs wie der XML-Code zurückgibt.
 
 1. Klicken Sie mit der rechten Maustaste auf das erweiterte Ereignis mit dem Namen **Blockieren**, und wählen Sie dann **Sitzung beenden** aus.
 
-    ![Abbildung 06](../images/dp-300-module-08-lab-06.png)
-
 1. Navigieren Sie zurück zu der Abfragesitzung, die die Blockierung verursacht, und geben Sie `ROLLBACK TRANSACTION` in der Zeile unter der Abfrage ein. Markieren Sie die Option `ROLLBACK TRANSACTION`, und wählen Sie **Ausführen** aus.
 
-    ![Abbildung 07](../images/dp-300-module-08-lab-07.png)
-
 1. Navigieren Sie zurück zur Abfragesitzung, die blockiert wurde. Sie werden feststellen, dass die Abfrage nun abgeschlossen wurde.
-
-    ![Abbildung 08](../images/dp-300-module-08-lab-08.png)
 
 ## Aktivieren der Momentaufnahme-Isolationsstufe „READ COMMITTED“
 
@@ -184,13 +188,15 @@ Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme
 
     ```sql
     USE master
+
     GO
     
     ALTER DATABASE AdventureWorks2017 SET READ_COMMITTED_SNAPSHOT ON WITH ROLLBACK IMMEDIATE;
+
     GO
     ```
 
-1. Führen Sie die Abfrage, die die Blockierung verursacht hat, in einem neuen Abfrage-Editor erneut aus.
+1. Führen Sie die Abfrage, die die Blockierung verursacht hat, in einem neuen Abfrage-Editor erneut aus. *Führen Sie nicht den Befehl „ROLLBACK TRANSACTION“ aus*.
 
     ```sql
     USE AdventureWorks2017
@@ -215,10 +221,33 @@ Sie wurden als Datenbankadministrator eingestellt, um leistungsbezogene Probleme
     WHERE firstname = 'David'
     ```
 
-    ![Abbildung 09](../images/dp-300-module-08-lab-09.png)
-
     Warum wird dieselbe Abfrage abgeschlossen, während sie in der vorherigen Aufgabe durch die Aktualisierungsanweisung blockiert wurde?
 
     Die Isolationsebene Read Commit Snapshot ist eine optimistische Form der Transaktionsisolation, und die letzte Abfrage zeigt die letzte festgeschriebene Version der Daten, anstatt blockiert zu werden.
+
+---
+
+## Bereinigung
+
+Wenn Sie die Datenbank oder die Lab-Dateien nicht für einen anderen Zweck verwenden, können Sie die Objekte bereinigen, die Sie in dieser Übung erstellt haben.
+
+### Löschen des Ordners „C:\LabFiles“
+
+1. Öffnen Sie den **Datei-Explorer** auf dem virtuellen Computer des Labs oder auf Ihrem lokalen Computer, falls kein solcher zur Verfügung gestellt wurde.
+1. Navigieren Sie zu **C:\\**.
+1. Löschen Sie den Ordner **C:\LabFiles**.
+
+### Löschen der AdventureWorks2017-Datenbank
+
+1. Starten Sie auf dem virtuellen Lab-Computer oder dem lokalen Computer, wenn kein Computer bereitgestellt wurde, eine SQL Server Management Studio-Sitzung (SSMS).
+1. Wenn SSMS geöffnet wird, erscheint standardmäßig das Dialogfeld **Mit Server verbinden**. Wählen Sie die Standardinstanz und dann **Verbinden** aus. Möglicherweise müssen Sie das Kontrollkästchen **Serverzertifikat vertrauen** aktivieren.
+1. Erweitern Sie im **Objekt-Explorer** den Ordner **Datenbanken**.
+1. Klicken Sie mit der rechten Maustaste auf die **AdventureWorks2017**-Datenbank und wählen Sie **Löschen**.
+1. Aktivieren Sie im Dialog **Objekt löschen** das Kontrollkästchen **Vorhandene Verbindungen schließen**.
+1. Wählen Sie **OK** aus.
+
+---
+
+Sie haben dieses Lab erfolgreich abgeschlossen.
 
 In dieser Übung haben Sie gelernt, wie Sie blockierte Sitzungen identifizieren und solche Szenarien entschärfen können.

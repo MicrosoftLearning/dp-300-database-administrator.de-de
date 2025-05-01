@@ -8,91 +8,70 @@ lab:
 
 **Geschätzte Dauer: 40 Minuten**
 
-Die Kursteilnehmer konfigurieren grundlegende Ressourcen, die für die Bereitstellung einer Azure SQL-Datenbank mit einem virtuellen Netzwerkendpunkt erforderlich sind. Konnektivität für die SQL-Datenbank wird mithilfe von Azure Data Studio aus der VM des Labs überprüft.
+Die Kursteilnehmer konfigurieren grundlegende Ressourcen, die für die Bereitstellung einer Azure SQL-Datenbank mit einem virtuellen Netzwerkendpunkt erforderlich sind. Die Verbindung zur SQL-Datenbank wird mithilfe von SQL Server Management Studio von der Lab-VM (sofern verfügbar) oder von Ihrem lokalen Computer aus überprüft.
 
-Als Datenbankadministrator richten Sie eine neue SQL-Datenbank ein, einschließlich eines Endpunkts für das virtuelle Netzwerk, um die Sicherheit der Bereitstellung zu erhöhen und zu vereinfachen. Azure Data Studio wird verwendet, um das Abfragen von Daten mithilfe eines SQL-Notebooks und das Überprüfen der Ergebnisse auszuwerten.
+Als Datenbankadministrator richten Sie eine neue SQL-Datenbank ein, einschließlich eines Endpunkts für das virtuelle Netzwerk, um die Sicherheit der Bereitstellung zu erhöhen und zu vereinfachen. SQL Server Management Studio wird verwendet, um die Verwendung eines SQL-Notebooks für die Datenabfrage und die Speicherung der Ergebnisse zu bewerten.
 
 ## Navigieren Sie zum Azure-Portal.
 
-1. Starten Sie auf dem virtuellen Lab-Computer eine Browsersitzung, und navigieren Sie zu [https://portal.azure.com](https://portal.azure.com/). Stellen Sie eine Verbindung zum Portal her. Verwenden Sie dafür **Benutzernamen** und **Kennwort** von Azure, die auf der Registerkarte **Ressourcen** für diesen virtuellen Lab-Computer bereitgestellt werden.
+1. Öffnen Sie auf dem virtuellen Lab-Computer, falls verfügbar, auf Ihrem lokalen Computer ein Browserfenster.
 
-    ![Abbildung 1](../images/dp-300-module-01-lab-01.png)
+1. Navigieren Sie zum Azure-Portal auf [https://portal.azure.com](https://portal.azure.com/). Melden Sie sich mit Ihrem Azure-Konto oder den bereitgestellten Anmeldedaten (falls vorhanden) beim Azure-Portal an.
 
-1. Suchen Sie im Azure-Portal im Suchfeld oben nach „Ressourcengruppen“ und wählen Sie dann **Ressourcengruppen** aus der Liste der Optionen aus.
+1. Suchen Sie im Azure-Portal im Suchfeld oben nach *Ressourcengruppen* und wählen Sie dann **Ressourcengruppen** aus der Liste der Optionen aus.
 
-    ![Abbildung 1](../images/dp-300-module-02-lab-45.png)
-
-1. Überprüfen Sie auf der Seite **Ressourcengruppe** die aufgelistete Ressourcengruppe (sie sollte mit *contoso-rg* beginnen), notieren Sie sich den **Standort**, der Ihrer Ressourcengruppe zugewiesen ist. Sie werden ihn in der nächsten Übung verwenden.
-
-    **Hinweis:** Möglicherweise haben Sie einen anderen Speicherort zugewiesen.
-
-    ![Abbildung 1](../images/dp-300-module-02-lab-46.png)
+1. Auf der Seite **Ressourcengruppe**, falls vorhanden, wählen Sie die Ressourcengruppe, die mit *contoso-rg* beginnt. Wenn diese Ressourcengruppe nicht existiert, erstellen Sie entweder eine neue Ressourcengruppe mit dem Namen *contoso-rg* in Ihrer lokalen Region oder verwenden Sie eine vorhandene Ressourcengruppe und notieren Sie sich die Region, in der sie sich befindet.
 
 ## Erstellen eines virtuellen Netzwerks
 
 1. Wählen Sie auf der Startseite von Azure-Portal das Menü links aus.  
 
-    ![Abbildung 2](../images/dp-300-module-02-lab-01_1.png)
+1. Wählen Sie im linken Navigationsbereich **virtuelle Netzwerke** aus.  
 
-1. Klicken Sie im linken Navigationsbereich auf **virtuelle Netzwerke**.  
-
-1. Klicken Sie auf **+ Erstellen**, um die Seite **Virtuelles Netzwerk erstellen** zu öffnen. BasicGeben Sie auf der Registerkarte **Grundlagen** die folgenden Informationen an:
+1. Wählen Sie **+ Erstellen** aus, um die Seite **Virtuelles Netzwerk erstellen** zu öffnen. BasicGeben Sie auf der Registerkarte **Grundlagen** die folgenden Informationen an:
 
     - **Abonnement:** &lt;Ihr Abonnement&gt;
-    - **Ressourcengruppe:** beginnend mit *contoso-rg*
+    - **Ressourcengruppe:** Beginnen Sie mit *DP300* oder der Ressourcengruppe, die Sie zuvor ausgewählt haben.
     - **Name:** lab02-vnet
     - **Region:** Wählen Sie dieselbe Region aus, in der Ihre Ressourcengruppe erstellt wurde.
 
-1. Klicken Sie auf **Bewerten + erstellen**, bewerten Sie die Einstellungen für das neue virtuelle Netzwerk, und klicken Sie dann auf **Erstellen**.
+1. Wählen Sie **Überprüfen + Erstellen**, legen Sie die Einstellungen für das neue virtuelle Netzwerk fest und wählen Sie dann **Erstellen**.
 
-## Bereitstellen einer Azure SQL-Datenbank
+## Bereitstellung einer Azure SQL-Datenbank im Azure-Portal
 
-1. Suchen Sie im Azure-Portal über die Suchleiste oben nach „SQL-Datenbank“, und wählen Sie aus der Optionsliste **SQL-Datenbank** aus.
+1. Suchen Sie im Azure-Portal im Suchfeld oben nach *SQL-Datenbanken* und wählen Sie dann **SQL-Datenbanken** aus der Liste der Optionen aus.
 
-    ![Abbildung 5](../images/dp-300-module-02-lab-10.png)
+1. Wählen Sie im Bereich **SQL-Datenbanken** die Option **+ Erstellen**.
 
-1. Klicken Sie auf der Seite **SQL-Datenbanken** auf **+ Erstellen**.
-
-    ![Abbildung 6](../images/dp-300-module-02-lab-10_1.png)
-
-1. Wählen Sie auf der Seite **SQL-Datenbank erstellen** die folgenden Optionen auf der **Registerkarte Grundlagen** aus, und klicken Sie dann auf **Weiter: Netzwerk**.
+1. Wählen Sie auf der Seite **SQL-Datenbank erstellen** auf der Registerkarte **Grundlagen** die folgenden Optionen und wählen Sie dann **Weiter: Netzwerk**.
 
     - **Abonnement:** &lt;Ihr Abonnement&gt;
-    - **Ressourcengruppe:** beginnend mit *contoso-rg*
+    - **Ressourcengruppe:** Beginnen Sie mit *DP300* oder der Ressourcengruppe, die Sie zuvor ausgewählt haben.
     - **Datenbankname:** AdventureWorksLT
-    - **Server:** Klicken Sie auf **Neuen Link erstellen**. Die Seite **SQL-Datenbank-Server erstellen** wird geöffnet. Geben Sie die Serverdetails wie folgt an:
-        - **Servername:** dp300-lab-&lt;-Ihre Initialen (in Kleinbuchstaben)&gt; (Servername muss global eindeutig sein.)
+    - **Server:** wählen Sie den Link **Neu erstellen**. Die Seite **SQL-Datenbank-Server erstellen** wird geöffnet. Geben Sie die Serverdetails wie folgt an:
+        - **Servername:** dp300-lab-&lt;Ihre Initialen (in Kleinbuchstaben)&gt; und bei Bedarf eine zufällige 5-stellige Zahl (der Servername muss weltweit eindeutig sein).
         - **Standort:** &lt;Ihre lokale Region, die mit der für Ihre Ressourcengruppe ausgewählten Region übereinstimmt, andernfalls kann der Vorgang fehlschlagen.&gt;
         - **Authentifizierungsmethode**: Verwenden Sie SQL-Authentifizierung.
         - **Serveradministratoranmeldung:** dp300admin
-        - **Kennwort**: dp300P@ssword!
-        - **Kennwort bestätigen:** dp300P@ssword!
+        - **Kennwort:** Wählen Sie ein komplexes Kennwort aus, und notieren Sie es.
+        - **Kennwort bestätigen:** Wählen Sie dasselbe zuvor ausgewählte Kennwort aus.
+    - Wählen Sie **OK**, um zur Seite **SQL-Datenbank erstellen** zurückzukehren.
+    - **Möchten Sie einen Pool für elastische SQL-Datenbanken verwenden?** Setzen Sie dies auf **Nein**.
+    - **Workloadumgebung**: Entwicklung
+    - Wählen Sie unter der Option **Compute + Speicher** den Link **Datenbank konfigurieren**. Auf der Seite **Konfigurieren** wählen Sie im Dropdown-Menü **Dienstebene** die Option **Basic** und dann **Anwenden**.
 
-        Die Seite **SQL-Datenbank Server** sollte ähnlich wie die folgende Seite aussehen. Klicken Sie dann auf **OK**.
+1. Für die Option **Sicherungsspeicherredundanz** behalten Sie den Standardwert bei: **Lokalredundanter Sicherungsspeicher**.
 
-        ![Abbildung 7](../images/dp-300-module-02-lab-11.png)
+1. Wählen Sie dann **Weiter: Netzwerk**.
 
-    -  Stellen Sie zurück auf der Seite **SQL-Datenbank erstellen** sicher, dass **Pool für elastische Datenbanken verwenden?** auf **Nein** festgelegt ist.
-    -  Wählen Sie unter **Compute und Speicher** den Link **Datenbank konfigurieren** aus. Wählen Sie auf der Seite **Konfigurieren** aus der Dropdownliste **Dienstebene** die Option **Einfach** und dann **Übernehmen** aus.
+1. Wählen Sie auf der Registerkarte **Netzwerk** für die Option **Netzwerkverbindung** das Optionsfeld **Privater Endpunkt**.
 
-    **Hinweis:** Notieren Sie sich diesen Servernamen und Ihre Anmeldeinformationen. Sie werden ihn in späteren Labs benötigen.
-
-1. Behalten Sie für die Option **Sicherungsspeicherredundanz** den Standardwert bei: **Georedundanter Sicherungsspeicher**.
-
-1. Klicken Sie auf **Weiter: Netzwerk**.
-
-1. Klicken Sie auf der **Registerkarte Netzwerk** für die Option **Netzwerkkonnektivität** auf das Optionsfeld **Privater Endpunkt**.
-
-    ![Abbildung 8](../images/dp-300-module-02-lab-14.png)
-
-1. Klicken Sie dann unter **Private Endpunkte** auf den Link **Privaten Endpunkt hinzufügen**.
-
-    ![Abbildung 9](../images/dp-300-module-02-lab-15.png)
+1. Wählen Sie dann den Link **+ Privaten Endpunkt hinzufügen** unter der Option **Private Endpunkte**.
 
 1. Füllen Sie das rechte Fenster **Privaten Endpunkt erstellen** wie folgt aus:
 
     - **Abonnement:** &lt;Ihr Abonnement&gt;
-    - **Ressourcengruppe:** beginnend mit *contoso-rg*
+    - **Ressourcengruppe:** Beginnen Sie mit *DP300* oder der Ressourcengruppe, die Sie zuvor ausgewählt haben.
     - **Standort:** &lt;Ihre lokale Region, die mit der für Ihre Ressourcengruppe ausgewählten Region übereinstimmt, andernfalls kann der Vorgang fehlschlagen.&gt;
     - Endgerät**Name:** DP-300-SQL-Endpunkt
     - **Untergeordnete Zielressource:** SqlServer
@@ -100,141 +79,143 @@ Als Datenbankadministrator richten Sie eine neue SQL-Datenbank ein, einschließl
     - **Subnetz:** lab02-vnet/default (10.x.0.0/24)
     - **Integration mit einer private DNS-Zone**: Ja
     - **Private DNS Zone:** Standardwert unverändert lassen
-    - Überprüfen Sie die Einstellungen, und klicken Sie dann auf **OK**.  
-
-    ![Abbildung 10](../images/dp-300-module-02-lab-16.png)
+    - Legen Sie die Einstellungen fest, und wählen Sie dann **OK**.  
 
 1. Der neue Endpunkt wird in der Liste **Private Endpunkte** aufgeführt.
 
-    ![Abbildung 11](../images/dp-300-module-02-lab-17.png)
-
-1. Klicken Sie auf **Weiter: Sicherheit** und dann **Weiter: Zusätzliche Einstellungen**.  
+1. Wählen Sie **Weiter: Sicherheit**, und dann **Weiter: Zusätzliche Einstellungen** aus.  
 
 1. Wählen Sie auf der Seite **Zusätzliche Einstellungen** die Option **Beispiel** für die Option **Vorhandene Daten verwenden** aus. Wählen Sie **OK** aus, wenn eine Popupmeldung für die Beispieldatenbank angezeigt wird.
 
-    ![Abbildung 12](../images/dp-300-module-02-lab-18.png)
+1. Klicken Sie auf **Überprüfen + erstellen**.
 
-1. Klicken Sie auf **Überprüfen und erstellen**.
-
-1. Überprüfen Sie die Einstellungen, und klicken Sie auf **Erstellen**.
+1. Überprüfen Sie die Einstellungen, bevor Sie auf **Erstellen** klicken.
 
 1. Klicken Sie nach Abschluss der Bereitstellung auf **Zu Ressource wechseln**.
 
-## Zugriff auf eine Azure SQL-Datenbank aktivieren
+## Aktivieren des Zugriffs auf eine Azure SQL-Datenbank
 
-1. Wählen Sie auf der Seite **SQL-Datenbank** den Abschnitt **Übersicht** und dann den Link für den Servernamen im oberen Abschnitt aus:
-
-    ![Abbildung 13](../images/dp-300-module-02-lab-19.png)
+1. Wählen Sie auf der Seite **SQL-Datenbank** den Abschnitt **Übersicht** und wählen Sie dann den Link für den Servernamen im oberen Abschnitt.
 
 1. Wählen Sie auf dem Navigationsblatt für SQL-Server die Option **Netzwerk** im **Abschnitt Sicherheit**.
 
-    ![Abbildung 14](../images/dp-300-module-02-lab-20.png)
+1. Wählen Sie auf der Registerkarte **Öffentlicher Zugriff** **Ausgewählte Netzwerke** aus.
 
-1. Wählen Sie auf der Registerkarte **Öffentlicher Zugriff** die Option **Ausgewählte Netzwerke** aus, und überprüfen Sie dann die **Azure-Dienste und -Ressourcen für den Zugriff auf diese Servereigenschaft**. Klicken Sie auf **Speichern**.
+1. Wählen Sie **+ Client IPv4-Adresse hinzufügen** aus. Dadurch wird eine Firewallregel hinzugefügt, damit Ihre aktuelle IP-Adresse auf den SQL-Server zugreifen kann.
 
-    ![Abbildung 15](../images/dp-300-module-02-lab-21.png)
+1. Markieren Sie die Eigenschaft **Zugriff von Azure-Diensten und -Ressourcen auf diesen Server zulassen**.
 
-## Herstellen einer Verbindung mit Azure SQL-Datenbank in Azure Data Studio
+1. Wählen Sie **Speichern**.
 
-1. Starten Sie Azure Data Studio auf dem virtuellen Computer für dieses Lab.
+---
 
-    - Möglicherweise wird dieses Popup beim ersten Start von Azure Data Studio angezeigt. Wenn ja, klicken Sie auf **Ja (empfohlen)**.  
+## Verbinden mit einer Azure SQL-Datenbank in SQL Server Management Studio
 
-        ![Abbildung 16](../images/dp-300-module-02-lab-22.png)
+1. Wählen Sie im Azure-Portal die **SQL-Datenbanken** im linken Navigationsbereich. Und wählen Sie dann die Datenbank **AdventureWorksLT**.
 
-1. Klicken Sie in Azure Data Studio in der oberen linken Ecke auf die Schaltfläche **Verbindungen** und **Verbindungen hinzufügen**.
+1. Kopieren Sie den Wert **Servername** von der Seite **Übersicht**.
 
-    ![Abbildung 17](../images/dp-300-module-02-lab-25.png)
+1. Starten Sie SQL Server Management Studio auf dem virtuellen Lab-Computer, falls vorhanden oder auf Ihrem lokalen Computer, falls nicht.
 
-1. Geben Sie in der Seitenleiste **Verbindung** im Abschnitt **Details zur Verbindung** die Verbindungsinformationen für eine Verbindung mit der zuvor erstellten SQL-Datenbank ein.
+1. Fügen Sie im Dialog **Mit dem Server verbinden** den **Servernamen** ein, den Sie aus dem Azure-Portal kopiert haben.
 
-    - Verbindungstyp: **Microsoft SQL Server**
-    - Geben Sie den Namen des zuvor erstellten SQL-Servers ein. Beispiel: **dp300-lab-xxxxxxxx.database.windows.net** (Wobei "xxxxxxxx" eine zufällige Zahl ist)
-    - Authentifizierungstyp: **SQL-Anmeldung**
-    - Benutzername: **dp300admin**
-    - Kennwort: **dp300P@ssword!**
-    - Erweitern Sie das Datenbankdropdown, und wählen Sie **AdventureWorksLT** aus. 
-        - **HINWEIS:** Möglicherweise werden Sie aufgefordert, eine Firewallregel hinzuzufügen, die ihren Client-IP-Zugriff auf diesen Server ermöglicht. Wenn Sie dazu aufgefordert werden, klicken Sie auf **Konto hinzufügen** und melden Sie sich bei Ihrem Azure-Konto an. Klicken Sie auf dem Bildschirm **Neue Firewallregel erstellen** auf **OK**.
+1. Wählen Sie in der Dropdown-Liste **Authentifizierung** die Option **SQL Server-Authentifizierung**.
 
-        ![Abbildung 18](../images/dp-300-module-02-lab-26.png)
+1. Geben Sie in das Feld **Anmeldung** **dp300admin** ein.
 
-        Alternativ können Sie auf Azure-Portal manuell eine Firewallregel für Ihren SQL Server erstellen, indem Sie zu Ihrem SQL-Server navigieren, **Netzwerk** auswählen und dann **Ihre Client-IPv4-Adresse (Ihre IP-Adresse) hinzufügen**
+1. Geben Sie in das Feld **Kennwort** das Kennwort ein, das bei der Erstellung des SQL-Servers ausgewählt wurde.
 
-        ![Abbildung 18](../images/dp-300-module-02-lab-47.png)
+1. Wählen Sie **Verbinden**.
 
-    Füllen Sie wieder zurück in der Randleiste „Verbindung“ Ihre Verbindungsdetails weiter aus:  
+1. SQL Server Management Studio stellt eine Verbindung zu Ihrem Azure SQL-Datenbankserver her. Sie können den Server und dann den Knoten **Datenbanken** erweitern, um die Datenbank *AdventureWorksLT* zu sehen.
 
-    - Behalten Sie für die Servergruppe die Einstellung **&lt;Standard&gt;** bei.
-    - Unter „Name (optional)“ kann bei Bedarf ein Anzeigename der Datenbank angegeben werden.
-    - Überprüfen Sie die Einstellungen, und klicken Sie auf **Verbinden**  
+## Abfrage einer Azure SQL-Datenbank mit SQL Server Management Studio
 
-    ![Abbildung 19](../images/dp-300-module-02-lab-27.png)
+1. Klicken Sie in SQL Server Management Studio mit der rechten Maustaste auf die Datenbank *AdventureWorksLT* und wählen Sie **Neue Abfrage**.
 
-1. Azure Data Studio stellt eine Verbindung zur Datenbank her und zeigt einige grundlegende Informationen zur Datenbank, einschließlich einer partiellen Objektliste.
+1. Fügen Sie die folgende SQL-Anweisung in das Abfragefenster ein:
 
-    ![Abbildung 20](../images/dp-300-module-02-lab-28.png)
+    ```sql
+    SELECT TOP 10 cust.[CustomerID], 
+        cust.[CompanyName], 
+        SUM(sohead.[SubTotal]) as OverallOrderSubTotal
+    FROM [SalesLT].[Customer] cust
+        INNER JOIN [SalesLT].[SalesOrderHeader] sohead
+             ON sohead.[CustomerID] = cust.[CustomerID]
+    GROUP BY cust.[CustomerID], cust.[CompanyName]
+    ORDER BY [OverallOrderSubTotal] DESC
+    ```
 
-## Abfragen einer Azure SQL-Datenbank-Instanz mit einem SQL-Notebook
+1. Wählen Sie die Schaltfläche **Ausführen** in der Symbolleiste, um die Abfrage auszuführen.
 
-1. Klicken Sie in Azure Data Studio, das mit der AdventureWorksLT-Datenbank dieses Labs verbunden ist, auf die Schaltfläche **Neues Notizbuch**.
+1. Im Bereich **Ergebnisse** sehen Sie sich die Ergebnisse der Abfrage an.
 
-    ![Abbildung 21](../images/dp-300-module-02-lab-29.png)
+1. Klicken Sie mit der rechten Maustaste auf die Datenbank *AdventureWorksLT*, und wählen Sie **Neue Abfrage** aus.
 
-1. Klicken Sie auf den Link **+ Text**, um im Notizbuch ein neues Textfeld hinzuzufügen.  
+1. Fügen Sie die folgende SQL-Anweisung in das Abfragefenster ein:
 
-    ![Abbildung 22](../images/dp-300-module-02-lab-30.png)
+    ```sql
+    SELECT TOP 10 cat.[Name] AS ProductCategory, 
+        SUM(detail.[OrderQty]) AS OrderedQuantity
+    FROM salesLT.[ProductCategory] cat
+        INNER JOIN [SalesLT].[Product] prod
+            ON prod.[ProductCategoryID] = cat.[ProductCategoryID]
+        INNER JOIN [SalesLT].[SalesOrderDetail] detail
+            ON detail.[ProductID] = prod.[ProductID]
+    GROUP BY cat.[name]
+    ORDER BY [OrderedQuantity] DESC
+    ```
 
-**Hinweis:** Im Notebook können Sie Nur-Text einbetten, um Abfragen oder Ergebnismengen zu erläutern.
+1. Wählen Sie die Schaltfläche **Ausführen** in der Symbolleiste, um die Abfrage auszuführen.
 
-1. Geben Sie den Text **Top Ten Customers by Order SubTotal** (Die zehn größten Kunden nach Bestellzwischensumme) ein, bei Bedarf auch in Fettdruck.
+1. Im Bereich **Ergebnisse** sehen Sie sich die Ergebnisse der Abfrage an.
 
-    ![Screenshot einer automatisch generierten Mobiltelefonbeschreibung](../images/dp-300-module-02-lab-31.png)
+1. Schließen Sie SQL Server Management Studio. Wählen Sie **Nein**, wenn Sie zum Speichern der Änderungen aufgefordert werden.
 
-1. Klicken Sie auf die Schaltfläche **+ Zelle** und **Codezelle**, um am Ende des Notizbuchs eine neue Codezelle einzufügen.  
+---
 
-    ![Abbildung 23](../images/dp-300-module-02-lab-32.png)
+## Bereinigen von Ressourcen
 
-5. Fügen Sie die folgende SQL-Anweisung in die neue Zelle ein:
+Wenn Sie den virtuellen Computer nicht für andere Zwecke verwenden, können Sie die in dieser Übung erstellten Ressourcen bereinigen.
 
-```sql
-SELECT TOP 10 cust.[CustomerID], 
-    cust.[CompanyName], 
-    SUM(sohead.[SubTotal]) as OverallOrderSubTotal
-FROM [SalesLT].[Customer] cust
-    INNER JOIN [SalesLT].[SalesOrderHeader] sohead
-         ON sohead.[CustomerID] = cust.[CustomerID]
-GROUP BY cust.[CustomerID], cust.[CompanyName]
-ORDER BY [OverallOrderSubTotal] DESC
-   ```
+### Löschen der Ressourcengruppe
 
-1. Klicken Sie auf den blauen Kreis mit dem Pfeil, um die Abfrage auszuführen. Beachten Sie, dass die Ergebnisse in die Zelle mit der Abfrage eingefügt werden.
+Wenn Sie eine neue Ressourcengruppe für dieses Lab erstellt haben, können Sie die Ressourcengruppe löschen, um alle in diesem Lab erstellten Ressourcen zu entfernen.
 
-1. Klicken Sie auf die Schaltfläche **+ Text**, um eine neue Textzelle hinzuzufügen.
+1. Wählen Sie im Azure-Portal **Ressourcengruppen** im linken Navigationsbereich oder suchen Sie in der Suchleiste nach **Ressourcengruppen** und wählen Sie die Option aus den Ergebnissen aus.
 
-1. Geben Sie den Text **Top Ten Ordered Product Categories** (Die zehn meistbestellten Produktkategorien) ein, bei Bedarf auch in Fettdruck.
+1. Wechseln Sie zur Ressourcengruppe, die Sie für dieses Lab erstellt haben. Die Ressourcengruppe enthält den virtuellen Computer und andere in dieser Übung erstellte Ressourcen.
 
-1. Klicken Sie noch einmal auf **+ Code**, um eine neue Zelle hinzuzufügen, und fügen Sie die folgende SQL-Anweisung in die Zelle ein.
+1. Wählen Sie **Ressourcengruppe löschen** aus dem Menü ganz oben aus.
 
-```sql
-SELECT TOP 10 cat.[Name] AS ProductCategory, 
-    SUM(detail.[OrderQty]) AS OrderedQuantity
-FROM salesLT.[ProductCategory] cat
-   INNER JOIN [SalesLT].[Product] prod
-      ON prod.[ProductCategoryID] = cat.[ProductCategoryID]
-   INNER JOIN [SalesLT].[SalesOrderDetail] detail
-      ON detail.[ProductID] = prod.[ProductID]
-GROUP BY cat.[name]
-ORDER BY [OrderedQuantity] DESC
-```
+1. Geben Sie im Dialog **Ressourcengruppe löschen** den Namen der zu bestätigenden Ressourcengruppe ein und wählen Sie **Löschen**.
 
-1. Klicken Sie auf den blauen Kreis mit dem Pfeil, um die Abfrage auszuführen.
+1. Warten Sie, bis die Ressourcengruppe gelöscht wurde.
 
-1. Klicken Sie in der Symbolleiste auf **Alle ausführen**, um alle Zellen im Notebook auszuführen und die Ergebnisse anzuzeigen.
+1. Schließen Sie das Azure-Portal.
 
-    ![Abbildung 17](../images/dp-300-module-02-lab-33.png)
+### Löschen Sie nur die Lab-Ressourcen
 
-1. Speichern Sie das Notizbuch in Azure Data Studio im Menü „Datei“ (entweder „Speichern“ oder „Speichern unter“) im **Pfad C:\Labfiles\Bereitstellen einer Azure SQL-Datenbank**. (Erstellen Sie die Ordnerstruktur, falls sie nicht vorhanden ist). (Stellen Sie sicher, dass die Dateierweiterung **.ipynb** lautet.)
+Wenn Sie keine neue Ressourcengruppe für dieses Lab erstellt haben und die Ressourcengruppe und die vorherigen Ressourcen intakt lassen möchten, können Sie die in dieser Übung erstellten Ressourcen weiterhin löschen.
 
-1. Schließen Sie die Registerkarte für das Notizbuch in Azure Data Studio. Klicken Sie im Menü „Datei“ auf „Datei öffnen“, und öffnen Sie das Notebook, das Sie soeben gespeichert haben. Beachten Sie, dass die Abfrageergebnisse zusammen mit den Abfragen im Notebook gespeichert wurden.
+1. Wählen Sie im Azure-Portal **Ressourcengruppen** im linken Navigationsbereich oder suchen Sie in der Suchleiste nach **Ressourcengruppen** und wählen Sie die Option aus den Ergebnissen aus.
+
+1. Wechseln Sie zur Ressourcengruppe, die Sie für dieses Lab erstellt haben. Die Ressourcengruppe enthält den virtuellen Computer und andere in dieser Übung erstellte Ressourcen.
+
+1. Wählen Sie alle Ressourcen aus, denen der zuvor im Lab angegebene SQL Server-Name vorangestellt ist. Wählen Sie außerdem das virtuelle Netzwerk und die private DNS-Zone aus, die Sie erstellt haben.
+
+1. Wählen Sie im Menü oben **Löschen** aus.
+
+1. Im Dialog **Ressourcen löschen** geben Sie **Löschen** ein und wählen **Löschen**.
+
+1. Wählen Sie erneut **Löschen**, um die Löschung der Ressourcen zu bestätigen.
+
+1. Warten Sie, bis die Ressourcen gelöscht wurden.
+
+1. Schließen Sie das Azure-Portal.
+
+---
+
+Sie haben dieses Lab erfolgreich abgeschlossen.
 
 In dieser Übung haben Sie gesehen, wie Sie eine Azure SQL-Datenbank mit einem Endpunkt für das virtuelle Netzwerk bereitstellen. Sie konnten auch eine Verbindung mit der SQL-Datenbank herstellen, die Sie mit SQL Server Management Studio erstellt haben.

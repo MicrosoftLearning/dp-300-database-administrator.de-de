@@ -14,7 +14,7 @@ Sie sind der Datenbankadministrator für AdventureWorks. Sie müssen eine Testum
 
 ## Bereitstellen von SQL Server auf einer Azure-VM
 
-1. Starten Sie auf dem virtuellen Lab-Computer eine Browsersitzung, navigieren Sie zu [https://portal.azure.com](https://portal.azure.com/), und melden Sie sich mit dem Microsoft-Konto an, das Ihrem Azure-Abonnement zugeordnet ist.
+1. Starten Sie eine Browsersitzung, navigieren Sie zu [https://portal.azure.com](https://portal.azure.com/), und melden Sie sich mit dem Microsoft-Konto an, das mit Ihrem Azure-Abonnement verknüpft ist.
 
 1. Suchen Sie oben auf der Seite nach der Suchleiste. Suchen Sie nach **Azure SQL**. Wählen Sie das unter **Dienste** angezeigte Suchergebnis für **Azure SQL**.
 
